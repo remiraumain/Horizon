@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Service\UploaderHelper;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -90,5 +91,10 @@ class Project
         $this->imageFilename = $imageFilename;
 
         return $this;
+    }
+
+    public function getImagePath()
+    {
+        return UploaderHelper::PROJECT_IMAGE.'/'.$this->getImageFilename();
     }
 }

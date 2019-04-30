@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Project;
 use App\Form\ProjectFormType;
+use App\Service\UploaderHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Gedmo\Sluggable\Util\Urlizer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,7 +27,7 @@ class ProjectController extends AbstractController
     /**
      * @Route("/project/new", name="project_new")
      */
-    public function new(EntityManagerInterface $entityManager, Request $request)
+    public function new(EntityManagerInterface $entityManager, Request $request, UploaderHelper $uploaderHelper)
     {
         $form = $this->createForm(ProjectFormType::class);
 
@@ -40,15 +41,7 @@ class ProjectController extends AbstractController
             $uploadedFile = $form['imageFile']->getData();
 
             if ($uploadedFile) {
-                $destination = $this->getParameter('kernel.project_dir') . '/public/uploads/project_image';
-
-                $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-                $newFilename = Urlizer::urlize($originalFilename) . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
-
-                $uploadedFile->move(
-                    $destination,
-                    $newFilename
-                );
+                $newFilename = $uploaderHelper->uploadProjectImage($uploadedFile);
                 $project->setImageFilename($newFilename);
             }
 

@@ -4,6 +4,7 @@
     <h1>{{ project.name }}</h1>
     <p>{{ project.description }}</p>
     <p>{{ project.id }}</p>
+    <img src="{{ uploaded_asset(project.imagePath)|imagine_filter('squared_thumbnail_medium') }}">
 {% endblock %}
 
 {% block title %}
