@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Service\UploaderHelper;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -44,6 +46,16 @@ class Project
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $publishedAt;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ProjectReference", mappedBy="project")
+     */
+    private $projectReferences;
+
+    public function __construct()
+    {
+        $this->projectReferences = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -119,4 +131,35 @@ class Project
     {
         return $this->publishedAt !== null;
     }
+
+    /**
+     * @return Collection|ProjectReference[]
+     */
+    public function getProjectReferences(): Collection
+    {
+        return $this->projectReferences;
+    }
+
+    /*public function addProjectReference(ProjectReference $projectReference): self
+    {
+        if (!$this->projectReferences->contains($projectReference)) {
+            $this->projectReferences[] = $projectReference;
+            $projectReference->setProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProjectReference(ProjectReference $projectReference): self
+    {
+        if ($this->projectReferences->contains($projectReference)) {
+            $this->projectReferences->removeElement($projectReference);
+            // set the owning side to null (unless already changed)
+            if ($projectReference->getProject() === $this) {
+                $projectReference->setProject(null);
+            }
+        }
+
+        return $this;
+    }*/
 }

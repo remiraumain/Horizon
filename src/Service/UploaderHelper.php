@@ -15,15 +15,18 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class UploaderHelper
 {
     const PROJECT_IMAGE = 'project_image';
+    const PROJECT_REFERENCE = 'project_reference';
 
     private $filesystem;
+    private $privateFilesystem;
     private $requestStackContext;
     private $logger;
     private $publicAssetBaseUrl;
 
-    public function __construct(FilesystemInterface $publicUploadsFilesystem, RequestStackContext $requestStackContext, LoggerInterface $logger, string $uploadedAssetsBaseUrl)
+    public function __construct(FilesystemInterface $publicUploadsFilesystem, FilesystemInterface $privateUploadsFilesystem, RequestStackContext $requestStackContext, LoggerInterface $logger, string $uploadedAssetsBaseUrl)
     {
         $this->filesystem = $publicUploadsFilesystem;
+        $this->privateFilesystem = $privateUploadsFilesystem;
         $this->requestStackContext = $requestStackContext;
         $this->logger = $logger;
         $this->publicAssetBaseUrl = $uploadedAssetsBaseUrl;
@@ -31,27 +34,7 @@ class UploaderHelper
 
     public function uploadProjectImage(File $file, ?string $existingFilename): string
     {
-        if ($file instanceof UploadedFile) {
-            $originalFilename = $file->getClientOriginalName();
-        } else {
-            $originalFilename = $file->getFilename();
-        }
-
-        $newFilename = Urlizer::urlize(pathinfo($originalFilename, PATHINFO_FILENAME)) . '-' . uniqid() . '.' . $file->guessExtension();
-
-        $result = $stream = fopen($file->getPathname(), 'r');
-        $this->filesystem->writeStream(
-            self::PROJECT_IMAGE . '/' . $newFilename,
-            $stream
-        );
-
-        if ($result === false) {
-            throw new \Exception(sprintf('Cold not write uploaded file "%s"', $newFilename));
-        }
-
-        if (is_resource($stream)) {
-            fclose($stream);
-        }
+        $newFilename = $this->uploadFile($file, self::PROJECT_IMAGE, true);
 
         if ($existingFilename) {
             try {
@@ -68,10 +51,59 @@ class UploaderHelper
         return $newFilename;
     }
 
+    public function uploadProjectReference(File $file): string
+    {
+        return $this->uploadFile($file, self::PROJECT_REFERENCE, false);
+    }
+
     public function getPublicPath(string $path): string
     {
         return $this->requestStackContext
                 ->getBasePath() . $this->publicAssetBaseUrl . '/' . $path;
     }
 
+    /**
+     * @return resource
+     */
+    public function readStream(string $path, bool $isPublic)
+    {
+        $filesystem = $isPublic ? $this->filesystem : $this->privateFilesystem;
+
+        $resource = $filesystem->readStream($path);
+
+        if ($resource === false) {
+            throw new \Exception(sprintf('Error opening stream for "%s"', $path));
+        }
+
+        return $resource;
+    }
+
+    private function uploadFile(File $file, string $directory, bool $isPublic): string
+    {
+        if ($file instanceof UploadedFile) {
+            $originalFilename = $file->getClientOriginalName();
+        } else {
+            $originalFilename = $file->getFilename();
+        }
+
+        $newFilename = Urlizer::urlize(pathinfo($originalFilename, PATHINFO_FILENAME)) . '-' . uniqid() . '.' . $file->guessExtension();
+
+        $filesystem = $isPublic ? $this->filesystem : $this->privateFilesystem;
+
+        $result = $stream = fopen($file->getPathname(), 'r');
+        $filesystem->writeStream(
+            $directory . '/' . $newFilename,
+            $stream
+        );
+
+        if ($result === false) {
+            throw new \Exception(sprintf('Cold not write uploaded file "%s"', $newFilename));
+        }
+
+        if (is_resource($stream)) {
+            fclose($stream);
+        }
+
+        return $newFilename;
+    }
 }
