@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Api\ProjectReferenceUploadApiModel;
 use App\Entity\Project;
 use App\Entity\ProjectReference;
 use App\Service\UploaderHelper;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\File\File as FileObject;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\HeaderUtils;
@@ -23,10 +25,31 @@ class ProjectReferenceController extends AbstractController
     /**
      * @Route("/project/{slug}/references", name="project_add_reference", methods={"POST"})
      */
-    public function uploadProjectReference(Project $project, Request $request, UploaderHelper $uploaderHelper, EntityManagerInterface $entityManager, ValidatorInterface $validator)
+    public function uploadProjectReference(Project $project, Request $request, UploaderHelper $uploaderHelper, EntityManagerInterface $entityManager, ValidatorInterface $validator, SerializerInterface $serializer)
     {
-        /** @var UploadedFile $uploadedFile */
-        $uploadedFile = $request->files->get('reference');
+        if ($request->headers->get('Content-Type') === 'application/json') {
+            /** @var ProjectReferenceUploadApiModel $uploadApiModel */
+            $uploadApiModel = $serializer->deserialize(
+                $request->getContent(),
+                ProjectReferenceUploadApiModel::class,
+                'json'
+            );
+
+            $violations = $validator->validate($uploadApiModel);
+            if ($violations->count() > 0) {
+                return $this->json($violations, 400);
+            }
+
+
+            $tmpPath = sys_get_temp_dir().'/sf_upload'.uniqid();
+            file_put_contents($tmpPath, $uploadApiModel->getDecodedData());
+            $uploadedFile = new FileObject($tmpPath);
+            $originalFilename = $uploadApiModel->filename;
+        } else {
+            /** @var UploadedFile $uploadedFile */
+            $uploadedFile = $request->files->get('reference');
+            $originalFilename = $uploadedFile->getClientOriginalName();
+        }
 
         $violations = $validator->validate(
             $uploadedFile,
@@ -58,8 +81,12 @@ class ProjectReferenceController extends AbstractController
 
         $projectReference = new ProjectReference($project);
         $projectReference->setFilename($filename);
-        $projectReference->setOriginalFilename($uploadedFile->getClientOriginalName() ?? $filename);
+        $projectReference->setOriginalFilename($originalFilename ?? $filename);
         $projectReference->setMimeType($uploadedFile->getMimeType() ?? 'application/octet-stream');
+
+        if (is_file($uploadedFile->getPathname())) {
+            unlink($uploadedFile->getPathname());
+        }
 
         $entityManager->persist($projectReference);
         $entityManager->flush();
@@ -79,6 +106,35 @@ class ProjectReferenceController extends AbstractController
      */
     public function getProjectReference(Project $project)
     {
+        return $this->json(
+            $project->getProjectReferences(),
+            200,
+            [],
+            [
+                'groups' => ['main']
+            ]
+        );
+    }
+
+    /**
+     * @Route("/project/{slug}/references/reorder", methods="POST", name="project_reorder_references")
+     */
+    public function reorderArticleReferences(Project $project, Request $request, EntityManagerInterface $entityManager)
+    {
+        $orderedIds = json_decode($request->getContent(), true);
+
+        if ($orderedIds === null) {
+            return $this->json(['detail' => 'Invalid body'], 400);
+        }
+
+        // from (position)=>(id) to (id) => (position)
+        $orderedIds = array_flip($orderedIds);
+        foreach ($project->getProjectReferences() as $reference) {
+            $reference->setPosition($orderedIds[$reference->getId()]);
+        }
+
+        $entityManager->flush();
+
         return $this->json(
             $project->getProjectReferences(),
             200,

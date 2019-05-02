@@ -46,6 +46,11 @@ class ProjectReference
      */
     private $mimeType;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $position = 0;
+
     public function __construct(Project $project)
     {
         $this->project = $project;
@@ -100,5 +105,17 @@ class ProjectReference
     public function getFilePath(): string
     {
         return UploaderHelper::PROJECT_REFERENCE.'/'.$this->getFilename();
+    }
+
+    public function getPosition(): ?int
+    {
+        return $this->position;
+    }
+
+    public function setPosition(int $position): self
+    {
+        $this->position = $position;
+
+        return $this;
     }
 }

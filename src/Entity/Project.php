@@ -49,6 +49,7 @@ class Project
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\ProjectReference", mappedBy="project")
+     * @ORM\OrderBy({"position"="ASC"})
      */
     private $projectReferences;
 
