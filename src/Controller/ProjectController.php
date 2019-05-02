@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Project;
 use App\Form\ProjectFormType;
+use App\Repository\ProjectRepository;
 use App\Service\UploaderHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Gedmo\Sluggable\Util\Urlizer;
@@ -17,10 +18,12 @@ class ProjectController extends AbstractController
     /**
      * @Route("/", name="app_homepage")
      */
-    public function homepage()
+    public function homepage(ProjectRepository $repository)
     {
-        return $this->render('project/index.html.twig', [
+        $porjects = $repository->findAllPublishedOrderedByNewest();
+        return $this->render('project/homepage.html.twig', [
             'controller_name' => 'ProjectController',
+            'projects' => $porjects,
         ]);
     }
 
@@ -36,12 +39,13 @@ class ProjectController extends AbstractController
         {
             /** @var Project $project */
             $project = $form->getData();
+            $project->setPublishedAt(new \DateTime('now'));
 
             /** @var UploadedFile $uploadedFile */
             $uploadedFile = $form['imageFile']->getData();
 
             if ($uploadedFile) {
-                $newFilename = $uploaderHelper->uploadProjectImage($uploadedFile);
+                $newFilename = $uploaderHelper->uploadProjectImage($uploadedFile, $project->getImageFilename());
                 $project->setImageFilename($newFilename);
             }
 
@@ -57,6 +61,37 @@ class ProjectController extends AbstractController
 
         return $this->render('project/new.html.twig', [
             'controller_name' => 'ProjectController',
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/project/{slug}/edit", name="project_edit")
+     */
+    public function edit(Project $project, Request $request, EntityManagerInterface $em, UploaderHelper $uploaderHelper)
+    {
+        $form = $this->createForm(ProjectFormType::class, $project);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var UploadedFile $uploadedFile */
+            $uploadedFile = $form['imageFile']->getData();
+
+            if ($uploadedFile) {
+                $newFilename = $uploaderHelper->uploadProjectImage($uploadedFile, $project->getImageFilename());
+                $project->setImageFilename($newFilename);
+            }
+            $em->persist($project);
+            $em->flush();
+
+            $this->addFlash('success', 'Project updated 👍');
+
+            return $this->redirectToRoute('project_show', [
+                'slug' => $project->getSlug(),
+            ]);
+        }
+
+        return $this->render('project/edit.html.twig', [
             'form' => $form->createView()
         ]);
     }

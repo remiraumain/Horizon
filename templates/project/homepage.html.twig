@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% for project in projects %}
+        <div>
+            <img src="{{ project.imagePath|imagine_filter('squared_thumbnail_small') }}">
+            <a href="{{ path('project_show', {slug: project.slug}) }}">
+                {{ project.name }}
+            </a>
+        </div>
+    {% endfor %}
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+

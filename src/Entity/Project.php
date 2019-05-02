@@ -40,6 +40,11 @@ class Project
      */
     private $imageFilename;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $publishedAt;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -96,5 +101,22 @@ class Project
     public function getImagePath()
     {
         return UploaderHelper::PROJECT_IMAGE.'/'.$this->getImageFilename();
+    }
+
+    public function getPublishedAt(): ?\DateTimeInterface
+    {
+        return $this->publishedAt;
+    }
+
+    public function setPublishedAt(?\DateTimeInterface $publishedAt): self
+    {
+        $this->publishedAt = $publishedAt;
+
+        return $this;
+    }
+
+    public function isPublished(): bool
+    {
+        return $this->publishedAt !== null;
     }
 }

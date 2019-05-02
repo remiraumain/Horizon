@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Project;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -17,6 +18,31 @@ class ProjectRepository extends ServiceEntityRepository
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Project::class);
+    }
+
+    /**
+     * @return Project[]
+     */
+    public function findAllPublishedOrderedByNewest()
+    {
+        return $this->addIsPublishedQueryBuilder()
+            //->leftJoin('a.tags', 't')
+            //->addSelect('t')
+            ->orderBy('a.publishedAt', 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    private function addIsPublishedQueryBuilder(QueryBuilder $qb = null)
+    {
+        return $this->getOrCreateQueryBuilder($qb)
+            ->andWhere('a.publishedAt IS NOT NULL');
+    }
+
+    private function getOrCreateQueryBuilder(QueryBuilder $qb = null)
+    {
+        return $qb ?: $this->createQueryBuilder('a');
     }
 
     // /**
