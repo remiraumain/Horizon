@@ -8,18 +8,7 @@
     {{ form_end(form) }}
 
     <h3>References</h3>
-    <ul>
-        {% for reference in project.projectReferences %}
-            <li>
-                {{ reference.originalFilename }}
-                <span>
-                    <a href="{{ path('project_download_reference', {
-                        id: reference.id
-                    }) }}"><i class="fas fa-download"></i></a>
-                </span>
-            </li>
-        {% endfor %}
-    </ul>
+    <ul class="js-reference-list" data-url="{{ path('project_list_references', {slug: project.slug}) }}"></ul>
     <form action="{{ path('project_add_reference', {
         slug: project.slug
     }) }}" method="post" enctype="multipart/form-data" class="dropzone js-reference-dropzone">

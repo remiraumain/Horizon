@@ -10,11 +10,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\HeaderUtils;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ProjectReferenceController extends AbstractController
@@ -74,6 +75,21 @@ class ProjectReferenceController extends AbstractController
     }
 
     /**
+     * @Route("/project/{slug}/references", name="project_list_references", methods={"GET"})
+     */
+    public function getProjectReference(Project $project)
+    {
+        return $this->json(
+            $project->getProjectReferences(),
+            200,
+            [],
+            [
+                'groups' => ['main']
+            ]
+        );
+    }
+
+    /**
      * @Route("/project/references/{id}/download", name="project_download_reference", methods={"GET"})
      */
     public function downloadProjectReference(ProjectReference $reference, UploaderHelper $uploaderHelper)
@@ -95,5 +111,57 @@ class ProjectReferenceController extends AbstractController
         $response->headers->set('Content-Disposition', $disposition);
 
         return $response;
+    }
+
+    /**
+     * @Route("/project/references/{id}", name="project_delete_reference", methods={"DELETE"})
+     */
+    public function deleteProjectReference(ProjectReference $reference, UploaderHelper $uploaderHelper, EntityManagerInterface $entityManager)
+    {
+//        $project = $reference->getProject();
+//        $this->denyAccessUnlessGranted('MANAGE', $project);
+
+        $entityManager->remove($reference);
+        $entityManager->flush();
+
+        $uploaderHelper->deleteFile($reference->getFilePath(), false);
+
+        return new Response(null, 204);
+    }
+
+    /**
+     * @Route("/project/references/{id}", name="project_update_reference", methods={"PUT"})
+     */
+    public function updateProjectReference(ProjectReference $reference, UploaderHelper $uploaderHelper, EntityManagerInterface $entityManager, SerializerInterface $serializer, Request $request, ValidatorInterface $validator)
+    {
+//        $project = $reference->getProject();
+//        $this->denyAccessUnlessGranted('MANAGE', $project);
+
+        $serializer->deserialize(
+            $request->getContent(),
+            ProjectReference::class,
+            'json',
+            [
+                'object_to_populate' => $reference,
+                'groups' => ['input']
+            ]
+        );
+
+        $violations = $validator->validate($reference);
+        if ($violations->count() > 0) {
+            return $this->json($violations, 400);
+        }
+
+        $entityManager->persist($reference);
+        $entityManager->flush();
+
+        return $this->json(
+            $reference,
+            200,
+            [],
+            [
+                'groups' => ['main']
+            ]
+        );
     }
 }
