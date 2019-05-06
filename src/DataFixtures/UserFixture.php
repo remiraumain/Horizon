@@ -20,14 +20,14 @@ class UserFixture extends AppFixtures
     {
         $this->createMany(10, 'main_users', function($i) use ($manager) {
             $user = new User();
-            $user->setEmail(sprintf('spacebar%d@example.com', $i));
+            $user->setEmail(sprintf('user%d@example.com', $i));
             $user->setFirstName($this->faker->firstName);
             $user->setLastName($this->faker->lastName);
             $user->setEnabled(true);
 
             $user->setPassword($this->passwordEncoder->encodePassword(
                 $user,
-                'engage'
+                'test'
             ));
 
             $apiToken1 = new ApiToken($user);
@@ -40,7 +40,7 @@ class UserFixture extends AppFixtures
 
         $this->createMany(3, 'admin_users', function($i) {
             $user = new User();
-            $user->setEmail(sprintf('admin%d@thespacebar.com', $i));
+            $user->setEmail(sprintf('admin%d@test.com', $i));
             $user->setFirstName($this->faker->firstName);
             $user->setLastName($this->faker->lastName);
             $user->setRoles(['ROLE_ADMIN']);
@@ -48,7 +48,7 @@ class UserFixture extends AppFixtures
 
             $user->setPassword($this->passwordEncoder->encodePassword(
                 $user,
-                'engage'
+                'admin'
             ));
 
             return $user;

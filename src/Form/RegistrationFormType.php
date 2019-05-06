@@ -23,6 +23,4 @@ class RegistrationFormType extends AbstractType
     {
         return BaseRegistrationFormType::class;
     }
-
-
 }
