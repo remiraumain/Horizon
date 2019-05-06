@@ -53,6 +53,12 @@ class Project
      */
     private $projectReferences;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="projects")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $author;
+
     public function __construct()
     {
         $this->projectReferences = new ArrayCollection();
@@ -163,4 +169,16 @@ class Project
 
         return $this;
     }*/
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
+
+        return $this;
+    }
 }

@@ -37,3 +37,7 @@ services:
     # please note that last definitions always *replace* previous ones
 
     Symfony\Component\Asset\Context\RequestStackContext: '@assets.context'
+
+    App\Form\RegistrationFormType:
+        tags:
+            - { name: form.type }

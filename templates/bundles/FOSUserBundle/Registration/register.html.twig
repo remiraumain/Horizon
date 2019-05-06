@@ -1,0 +1,38 @@
+{% extends "@FOSUser/layout.html.twig" %}
+{% form_theme form _self %}
+
+{% block form_row %}
+    {%- set widget_attr = {} -%}
+    {%- if help is not empty -%}
+        {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
+    {%- endif -%}
+
+    {{- form_label(form, null, {
+        label_attr: { class: 'sr-only' }
+    }) -}}
+    {{- form_errors(form) -}}
+    {{- form_widget(form, widget_attr) -}}
+    {{- form_help(form) -}}
+{% endblock %}
+
+{% block _user_registration_form_agreeTerms_row %}
+    <div class="checkbox mb-3">
+        {{ form_errors(form) }}
+        <label>
+            <input type="checkbox" name="{{ full_name }}" required> Agree to terms I for sure read
+        </label>
+    </div>
+{% endblock %}
+
+{% block title %}Sign in{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+{% endblock %}
+
+{% block body %}
+    {% block fos_user_content %}
+        {% include "@FOSUser/Registration/register_content.html.twig" %}
+    {% endblock fos_user_content %}
+{% endblock %}

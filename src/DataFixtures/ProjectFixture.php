@@ -7,8 +7,9 @@ use App\Service\UploaderHelper;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-class ProjectFixture extends AppFixtures
+class ProjectFixture extends AppFixtures implements DependentFixtureInterface
 {
     private $uploaderHelper;
     private static $projectImages = [
@@ -26,6 +27,7 @@ class ProjectFixture extends AppFixtures
     {
         $this->createMany(10, 'main_projects', function ($count) use ($manager) {
             $project = new Project();
+            $project->setAuthor($this->getRandomReference('main_users'));
 
             $imageFilename = $this->fakeUploadImage();
 
@@ -53,5 +55,12 @@ class ProjectFixture extends AppFixtures
         $fs->copy(__DIR__.'/images/'.$randomImage, $targetPath, true);
         return $this->uploaderHelper
             ->uploadProjectImage(new File($targetPath), null);
+    }
+
+    public function getDependencies()
+    {
+        return [
+            UserFixture::class,
+        ];
     }
 }

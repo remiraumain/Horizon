@@ -1,0 +1,32 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            {{ form_start(form, {
+                'method': 'post', 'action': path('fos_user_registration_register'),
+                'attr': {'class': 'form-signin fos_user_registration_register'}
+            }) }}
+            <h1 class="h3 mb-3 font-weight-normal">Register</h1>
+            {{ form_row(form.firstName, {
+                'attr': {'placeholder': 'First name'}
+            }) }}
+            {{ form_row(form.lastName, {
+                'attr': {'placeholder': 'Last name'}
+            }) }}
+            {{ form_row(form.email, {
+                attr: { 'placeholder': 'Email' }
+            }) }}
+            {{ form_row(form.plainPassword.first, {
+                'attr': {'placeholder': 'Password'}
+            }) }}
+            {{ form_row(form.plainPassword.second, {
+                'attr': {'placeholder': 'Confirm Password'}
+            }) }}
+            <button class="btn btn-lg btn-primary btn-block" type="submit">
+                Register
+            </button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>

@@ -1,13 +1,40 @@
 security:
+    encoders:
+        App\Entity\User: bcrypt
+
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory: { memory: ~ }
+#        in_memory: { memory: ~ }
+        fos_userbundle:
+            id: fos_user.user_provider.username
+    role_hierarchy:
+        ROLE_ADMIN: [ROLE_ADMIN_COMMENT, ROLE_ADMIN_PROJECT, ROLE_ALLOWED_TO_SWITCH]
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             anonymous: true
+            logout: ~
+            switch_user: true
+
+            form_login:
+                csrf_token_generator: security.csrf.token_manager
+
+            remember_me:
+                secret:   '%kernel.secret%'
+                lifetime: 604800 # 1 week in seconds
+                path:     /
+                # by default, the feature is enabled by checking a
+                # checkbox in the login form (see below), uncomment the
+                # following line to always enable it.
+                #always_remember_me: true
+            guard:
+                authenticators:
+                    - App\Security\LoginFormAuthenticator
+                    - App\Security\ApiTokenAuthenticator
+                entry_point: App\Security\LoginFormAuthenticator
 
             # activate different ways to authenticate
 

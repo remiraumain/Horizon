@@ -8,11 +8,13 @@
         {% endblock %}
     </head>
     <body>
-        {% for message in app.flashes('success') %}
-            <p>{{ message }}</p>
-        {% endfor %}
-        {% for message in app.flashes('error') %}
-            <p>{{ message }}</p>
+
+        {% for label, messages in app.flashes(['success', 'error']) %}
+            {% for message in messages %}
+                <div class="flash-{{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
         {% endfor %}
 
         {% block body %}{% endblock %}
