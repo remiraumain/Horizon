@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class UploaderHelper
 {
+    const PROFILE_IMAGE = 'profile_image';
     const PROJECT_IMAGE = 'project_image';
     const PROJECT_REFERENCE = 'project_reference';
 
@@ -32,13 +33,13 @@ class UploaderHelper
         $this->publicAssetBaseUrl = $uploadedAssetsBaseUrl;
     }
 
-    public function uploadProjectImage(File $file, ?string $existingFilename): string
+    public function uploadImage(File $file, ?string $existingFilename, string $directory): string
     {
-        $newFilename = $this->uploadFile($file, self::PROJECT_IMAGE, true);
+        $newFilename = $this->uploadFile($file, $directory, true);
 
         if ($existingFilename) {
             try {
-                $result = $this->filesystem->delete(self::PROJECT_IMAGE.'/'.$existingFilename);
+                $result = $this->filesystem->delete($directory.'/'.$existingFilename);
 
                 if ($result === false) {
                     throw new \Exception(sprintf('Cold not delete old uploaded file "%s"', $existingFilename));
@@ -49,6 +50,16 @@ class UploaderHelper
         }
 
         return $newFilename;
+    }
+
+    public function uploadProfileImage(File $file, ?string $existingFilename): string
+    {
+        return $this->uploadImage($file, $existingFilename, self::PROFILE_IMAGE);
+    }
+
+    public function uploadProjectImage(File $file, ?string $existingFilename): string
+    {
+        return $this->uploadImage($file, $existingFilename, self::PROJECT_IMAGE);
     }
 
     public function uploadProjectReference(File $file): string

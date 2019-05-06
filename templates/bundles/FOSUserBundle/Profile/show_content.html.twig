@@ -1,8 +1,9 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 
-
-<img src="{{ user.imagePath|imagine_filter('squared_thumbnail_medium') }}">
+<a href="{{ uploaded_asset(user.imagePath) }}" target="_blank">
+    <img src="{{ user.imagePath|imagine_filter('squared_thumbnail_medium') }}">
+</a>
 <h3>Welcome back, {{ user.firstName }}</h3>
 {% if user.username %}
     <h4>{{ user.username }}</h4>

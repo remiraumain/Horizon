@@ -34,7 +34,7 @@ class AddImageAfterValidationEditProfile implements EventSubscriberInterface
         $uploadedFile = $event->getForm()['imageFile']->getData();
 
         if ($uploadedFile) {
-            $newFilename = $this->uploaderHelper->uploadProjectImage($uploadedFile, $user->getImageFilename());
+            $newFilename = $this->uploaderHelper->uploadProfileImage($uploadedFile, $user->getImageFilename());
             $user->setImageFilename($newFilename);
         }
     }

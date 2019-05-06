@@ -174,6 +174,6 @@ class User extends BaseUser
 
     public function getImagePath()
     {
-        return UploaderHelper::PROJECT_IMAGE.'/'.$this->getImageFilename();
+        return UploaderHelper::PROFILE_IMAGE.'/'.$this->getImageFilename();
     }
 }

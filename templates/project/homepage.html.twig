@@ -7,6 +7,7 @@
             <a href="{{ path('project_show', {slug: project.slug}) }}">
                 {{ project.name }}
             </a>
+            <img src="{{ project.author.imagePath|imagine_filter('squared_thumbnail_small') }}">
         </div>
     {% endfor %}
 {% endblock %}
