@@ -57,9 +57,9 @@ class UploaderHelper
         return $this->uploadImage($file, $existingFilename, self::PROFILE_IMAGE);
     }
 
-    public function uploadProjectImage(File $file, ?string $existingFilename): string
+    public function uploadProjectImage(File $file): string
     {
-        return $this->uploadImage($file, $existingFilename, self::PROJECT_IMAGE);
+        return $this->uploadFile($file, self::PROJECT_IMAGE, true);
     }
 
     public function uploadProjectReference(File $file): string

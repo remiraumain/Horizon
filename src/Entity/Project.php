@@ -59,9 +59,15 @@ class Project
      */
     private $author;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ProjectImage", mappedBy="project")
+     */
+    private $projectImages;
+
     public function __construct()
     {
         $this->projectReferences = new ArrayCollection();
+        $this->projectImages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -181,4 +187,35 @@ class Project
 
         return $this;
     }
+
+    /**
+     * @return Collection|ProjectImage[]
+     */
+    public function getProjectImages(): Collection
+    {
+        return $this->projectImages;
+    }
+
+    /*public function addProjectImage(ProjectImage $projectImage): self
+    {
+        if (!$this->projectImages->contains($projectImage)) {
+            $this->projectImages[] = $projectImage;
+            $projectImage->setProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProjectImage(ProjectImage $projectImage): self
+    {
+        if ($this->projectImages->contains($projectImage)) {
+            $this->projectImages->removeElement($projectImage);
+            // set the owning side to null (unless already changed)
+            if ($projectImage->getProject() === $this) {
+                $projectImage->setProject(null);
+            }
+        }
+
+        return $this;
+    }*/
 }

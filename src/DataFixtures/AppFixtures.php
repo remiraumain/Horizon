@@ -88,4 +88,29 @@ abstract class AppFixtures extends Fixture
 
         return $references;
     }
+
+    protected function getAllReferencesByType(string $groupName)
+    {
+        if (!isset($this->referencesIndex[$groupName])) {
+            $this->referencesIndex[$groupName] = [];
+
+            foreach ($this->referenceRepository->getReferences() as $key => $ref) {
+                if (strpos($key, $groupName.'_') === 0) {
+                    $this->referencesIndex[$groupName][] = $key;
+                }
+            }
+        }
+
+        if (empty($this->referencesIndex[$groupName])) {
+            throw new \InvalidArgumentException(sprintf('Did not find any references saved with the group name "%s"', $groupName));
+        }
+
+        $references = [];
+
+        foreach ($this->referencesIndex[$groupName] as $reference) {
+            array_push($references, $reference);
+        }
+
+        return $references;
+    }
 }

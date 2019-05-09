@@ -13,7 +13,11 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
+/**
+ * @IsGranted("ROLE_USER")
+ */
 class ProjectController extends AbstractController
 {
     /**
@@ -41,14 +45,7 @@ class ProjectController extends AbstractController
             /** @var Project $project */
             $project = $form->getData();
             $project->setPublishedAt(new \DateTime('now'));
-
-            /** @var UploadedFile $uploadedFile */
-            $uploadedFile = $form['imageFile']->getData();
-
-            if ($uploadedFile) {
-                $newFilename = $uploaderHelper->uploadProjectImage($uploadedFile, $project->getImageFilename());
-                $project->setImageFilename($newFilename);
-            }
+            $project->setAuthor($this->getUser());
 
             $entityManager->persist($project);
             $entityManager->flush();
@@ -68,6 +65,7 @@ class ProjectController extends AbstractController
 
     /**
      * @Route("/project/{slug}/edit", name="project_edit")
+     * @IsGranted("MANAGE", subject="project")
      */
     public function edit(Project $project, Request $request, EntityManagerInterface $em, UploaderHelper $uploaderHelper)
     {
@@ -75,13 +73,6 @@ class ProjectController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var UploadedFile $uploadedFile */
-            $uploadedFile = $form['imageFile']->getData();
-
-            if ($uploadedFile) {
-                $newFilename = $uploaderHelper->uploadProjectImage($uploadedFile, $project->getImageFilename());
-                $project->setImageFilename($newFilename);
-            }
             $em->persist($project);
             $em->flush();
 

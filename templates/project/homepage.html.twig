@@ -3,7 +3,11 @@
 {% block body %}
     {% for project in projects %}
         <div>
-            <img src="{{ project.imagePath|imagine_filter('squared_thumbnail_small') }}">
+        {% set firstImage = project.projectImages|first %}
+            {% if firstImage %}
+            <img src="{{ firstImage.imagePath|imagine_filter('squared_thumbnail_small') }}">
+            {% endif %}
+
             <a href="{{ path('project_show', {slug: project.slug}) }}">
                 {{ project.name }}
             </a>

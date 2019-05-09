@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AccountController extends AbstractController
 {
     /**
-     * @Route("/profil/{id}", name="profile_show")
+     * @Route("/profile/show/{id}", name="profile_show")
      */
     public function show(User $user)
     {

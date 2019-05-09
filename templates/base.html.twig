@@ -5,6 +5,7 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}
             <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+            <link rel="stylesheet" href="{{ asset('uploads/css/navbar.css') }}">
         {% endblock %}
     </head>
     <body>
@@ -17,9 +18,24 @@
             {% endfor %}
         {% endfor %}
 
+        {% block nav %}
+            <div class="parent2">
+                <a href="{{ path('fos_user_profile_show') }}"><div class="test1"><i class="fas fa-user fa-2x"></i></div></a>
+                <a href="#"><div class="test2"><i class="fas fa-tools fa-2x"></i></div></a>
+                <a href="{{ path('project_new') }}"><div class="test3"><i class="far fa-file fa-2x"></i></div></a>
+                <a href="{{ path('app_homepage') }}"><div class="test4"><i class="fas fa-home fa-2x"></i></div></a>
+                {% if is_granted('ROLE_USER') %}
+                    <img src="{{ app.user.imagePath|imagine_filter('squared_thumbnail_small') }}" alt="profile picture" class="mask2">
+                {% else %}
+                    <div class="mask2"><i class="fab fa-connectdevelop fa-3x"></i></div>
+                {% endif %}
+            </div>
+        {% endblock %}
+
         {% block body %}{% endblock %}
         {% block javascripts %}
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+            <script src="{{ asset('uploads/js/navbar.js') }}"></script>
         {% endblock %}
     </body>
 </html>

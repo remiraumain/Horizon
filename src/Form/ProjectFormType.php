@@ -22,26 +22,6 @@ class ProjectFormType extends AbstractType
             ->add('name')
             ->add('description')
         ;
-
-        $imageContraints = [
-            new Image([
-                'maxSize' => '5M'
-            ]),
-        ];
-
-        if (!$isEdit || !$project->getImageFilename())
-        {
-            $imageContraints[] = new NotNull([
-                'message' => 'Please upload an image'
-            ]);
-        }
-        $builder
-            ->add('imageFile', FileType::class, [
-                'mapped' => false,
-                'required' => false,
-                'constraints' => $imageContraints
-            ])
-        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

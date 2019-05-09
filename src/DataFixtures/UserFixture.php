@@ -60,6 +60,10 @@ class UserFixture extends AppFixtures
             $user->setRoles(['ROLE_ADMIN']);
             $user->setEnabled(true);
 
+            $imageFilename = $this->fakeUploadImage();
+
+            $user->setImageFilename($imageFilename);
+
             $user->setPassword($this->passwordEncoder->encodePassword(
                 $user,
                 'admin'

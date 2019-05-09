@@ -2,12 +2,20 @@
 
 {% block body %}
     <h1>{{ project.name }}</h1>
+
+    {% for image in project.projectImages %}
+        <a href="{{ uploaded_asset(image.imagePath) }}" target="_blank">
+            <img src="{{ image.imagePath|imagine_filter('squared_thumbnail_medium') }}">
+        </a>
+    {% endfor %}
+
+    <div>
+        <a href="{{ path('profile_show', {'id': project.author.id}) }}">
+            <img src="{{ project.author.imagePath|imagine_filter('squared_thumbnail_small') }}" alt="profile picture">
+            <p>{{ project.author.firstName }} {{ project.author.lastName }}</p>
+        </a>
+    </div>
     <p>{{ project.description }}</p>
-    <p>{{ project.id }}</p>
-    <a href="{{ uploaded_asset(project.imagePath) }}" target="_blank">
-        <img src="{{ project.imagePath|imagine_filter('squared_thumbnail_medium') }}">
-    </a>
-    <a href="{{ path('profile_show', {'id': project.author.id}) }}">{{ project.author.firstName }}</a>
 {% endblock %}
 
 {% block title %}

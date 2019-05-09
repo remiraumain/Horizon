@@ -150,8 +150,8 @@ class ProjectReferenceController extends AbstractController
      */
     public function downloadProjectReference(ProjectReference $reference, UploaderHelper $uploaderHelper)
     {
-//        $project = $reference->getProject();
-//        $this->denyAccessUnlessGranted('MANAGE', $project);
+        $project = $reference->getProject();
+        $this->denyAccessUnlessGranted('MANAGE', $project);
 
         $response = new StreamedResponse(function () use ($reference, $uploaderHelper) {
             $outputStream = fopen('php://output', 'wb');
@@ -174,8 +174,8 @@ class ProjectReferenceController extends AbstractController
      */
     public function deleteProjectReference(ProjectReference $reference, UploaderHelper $uploaderHelper, EntityManagerInterface $entityManager)
     {
-//        $project = $reference->getProject();
-//        $this->denyAccessUnlessGranted('MANAGE', $project);
+        $project = $reference->getProject();
+        $this->denyAccessUnlessGranted('MANAGE', $project);
 
         $entityManager->remove($reference);
         $entityManager->flush();
@@ -190,8 +190,8 @@ class ProjectReferenceController extends AbstractController
      */
     public function updateProjectReference(ProjectReference $reference, UploaderHelper $uploaderHelper, EntityManagerInterface $entityManager, SerializerInterface $serializer, Request $request, ValidatorInterface $validator)
     {
-//        $project = $reference->getProject();
-//        $this->denyAccessUnlessGranted('MANAGE', $project);
+        $project = $reference->getProject();
+        $this->denyAccessUnlessGranted('MANAGE', $project);
 
         $serializer->deserialize(
             $request->getContent(),

@@ -13,6 +13,25 @@
         slug: project.slug
     }) }}" method="post" enctype="multipart/form-data" class="dropzone js-reference-dropzone">
     </form>
+
+    <h3>Images</h3>
+    <form action="{{ path('admin_project_add_image', {
+        slug: project.slug
+    }) }}" method="post"enctype="multipart/form-data">
+        <input type="file" name="image">
+        <button type="submit">Upload</button>
+    </form>
+
+    <h3>List :</h3>
+    <ul>
+        {% for image in project.projectImages %}
+            <li>{{ image.originalFilename }}</li>
+            <img src="{{ image.imagePath|imagine_filter('squared_thumbnail_small') }}" alt="slide of slider">
+            <a href="{{ path('project_delete_image', {
+                id: image.id
+            }) }}">Delete</a>
+        {% endfor %}
+    </ul>
 {% endblock %}
 
 {% block stylesheets %}
