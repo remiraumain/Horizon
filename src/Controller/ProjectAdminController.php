@@ -44,7 +44,6 @@ class ProjectAdminController extends AbstractController
         );
 
         if ($violations->count() > 0) {
-            dd($violations);
             return $this->json($violations, 400);
         }
 

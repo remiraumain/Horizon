@@ -1,13 +1,14 @@
-{% extends 'base.html.twig' %}
+{% extends 'content_base.html.twig' %}
 
 {% block title %}
 
 {% endblock %}
 
-{% block body %}
+{% block content_body %}
+    <h1>Create your new project 🤯</h1>
     {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button type="submit">Create !</button>
+        {{ form_widget(form) }}
+        <button type="submit">Create !</button>
     {{ form_end(form) }}
 {% endblock %}
 

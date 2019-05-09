@@ -1,15 +1,30 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
+<div class="fos_user_user_show">
+    <div class="container">
+        <div class="row user-menu-container square">
+            <div class="col-md-12 user-details">
+                <div class="row spacepurplebg white">
+                    <div class="col-md-2 no-pad">
+                        <a href="{{ uploaded_asset(user.imagePath) }}" target="_blank">
+                            <div class="user-image">
+                                    <img src="{{ user.imagePath|imagine_filter('squared_thumbnail_small') }}">
+                            </div>
+                        </a>
+                        <div class="col-md-10 no-pad">
+                            <div class="user-pad">
+                                <h3>{{ user.firstName }} {{ user.lastName }}</h3>
+                                {% if user == app.user %}
+                                    <a class="btn btn-labeled btn-info" href="{{ path('fos_user_profile_edit') }}">
+                                        <span class="btn-label"><i class="fa fa-pen"></i></span>Update
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<a href="{{ uploaded_asset(user.imagePath) }}" target="_blank">
-    <img src="{{ user.imagePath|imagine_filter('squared_thumbnail_medium') }}">
-</a>
-<h3>Welcome back, {{ user.firstName }}</h3>
-{% if user.username %}
-    <h4>{{ user.username }}</h4>
-{% endif %}
-{% if user == app.user %}
-<a href="{{ path('fos_user_profile_edit') }}">
-    <span class="btn-label"><i class="fa fa-pen"></i></span>Update
-</a>
-{% endif %}
