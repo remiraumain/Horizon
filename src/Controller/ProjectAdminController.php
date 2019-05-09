@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Project;
 use App\Entity\ProjectImage;
 use App\Entity\ProjectReference;
+use App\Repository\ProjectRepository;
 use App\Service\UploaderHelper;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -64,6 +65,7 @@ class ProjectAdminController extends AbstractController
 
     /**
      * @Route("/project/images/{id}", name="project_delete_image")
+     * @IsGranted("MANAGE", subject="project")
      */
     public function deleteProjectReference(ProjectImage $image, UploaderHelper $uploaderHelper, EntityManagerInterface $entityManager)
     {
@@ -76,5 +78,49 @@ class ProjectAdminController extends AbstractController
         $uploaderHelper->deleteFile($image->getImagePath(), true);
 
         return new Response(null, 204);
+    }
+
+    /**
+     * @Route("/admin/project/{id}/delete", name="project_delete")
+     * @IsGranted("MANAGE", subject="project")
+     */
+    public function delete(Project $project, EntityManagerInterface $em, UploaderHelper $uploaderHelper)
+    {
+        foreach ($project->getProjectImages() as $image)
+        {
+            $uploaderHelper->deleteFile($image->getImagePath(), true);
+        }
+        $em->remove($project);
+        $em->flush();
+        $this->addFlash('success', 'Project Deleted! That\'s a good thing because it was garbage 💩');
+        return $this->redirectToRoute('project_list');
+    }
+
+    /**
+     * @Route("/admin/project", name="admin_project_list")
+     * @IsGranted("ROLE_SUPER_ADMIN")
+     */
+    public function listAll(ProjectRepository $projectRepo)
+    {
+        $projects = $projectRepo->findAll();
+
+        return $this->render('project/list.html.twig', [
+            'projects' => $projects,
+        ]);
+    }
+
+    /**
+     * @Route("/list/project", name="project_list")
+     * @IsGranted("ROLE_USER")
+     */
+    public function listManage(ProjectRepository $projectRepo)
+    {
+        $projects = $projectRepo->findBy(
+            ['author' => $this->getUser()]
+        );
+
+        return $this->render('project/list.html.twig', [
+            'projects' => $projects,
+        ]);
     }
 }

@@ -60,7 +60,7 @@ class Project
     private $author;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ProjectImage", mappedBy="project")
+     * @ORM\OneToMany(targetEntity="App\Entity\ProjectImage", mappedBy="project", orphanRemoval=true)
      */
     private $projectImages;
 
