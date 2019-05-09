@@ -1,0 +1,7 @@
+.carousel-indicators li.active {
+    background-color: black;
+}
+
+.carousel-control-icon {
+    filter: invert(100%);
+}

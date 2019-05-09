@@ -3,8 +3,11 @@
 {% block content_body %}
     {{ form_start(form) }}
     {{ form_widget(form) }}
+    {{ form_row(form.save) }}
 
-    <button type="submit">Modify !</button>
+    {% if not project.published %}
+        {{ form_row(form.publish) }}
+    {% endif %}
     {{ form_end(form) }}
 
     <h3>References</h3>
@@ -45,6 +48,6 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js" integrity="sha256-cs4thShDfjkqFGk5s2Lxj35sgSRr4MRcyccmi0WKqCM=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.9.0/Sortable.min.js" integrity="sha256-dTRAC66orJgjxgfw22bvkFVLM8/S+vchcXIzHyYzNFg=" crossorigin="anonymous"></script>
-    <script src="{{ asset('uploads/js/project_form.js') }}"></script>
+    <script src="{{ asset('/js/project_form.js') }}"></script>
 {% endblock %}
 

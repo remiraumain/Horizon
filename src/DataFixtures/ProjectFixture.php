@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Category;
 use App\Entity\Project;
 use App\Entity\ProjectImage;
 use App\Service\UploaderHelper;
@@ -19,15 +20,18 @@ class ProjectFixture extends AppFixtures implements DependentFixtureInterface
         $user = $this->getRandomReference('main_users');
         $this->createMany(10, 'main_projects', function ($count) use ($manager) {
             $project = new Project();
-            $project->setAuthor($this->getRandomReference('main_users'));
+            $project->setAuthor($this->getRandomReference('main_users'))
+                ->setCategory($this->getRandomReference('main_categories'))
+            ;
 
             // publish most articles
             if ($this->faker->boolean(70)) {
                 $project->setPublishedAt($this->faker->dateTimeBetween('-100 days', '-1 days'));
             }
 
-            $project->setName("test")
-                ->setDescription("test");
+            $project->setName($this->faker->realText($maxNbChars = 100))
+                ->setDescription($this->faker->paragraphs(3, true))
+            ;
 
             return $project;
         });
@@ -39,6 +43,7 @@ class ProjectFixture extends AppFixtures implements DependentFixtureInterface
     {
         return [
             UserFixture::class,
+            CategoryFixture::class,
         ];
     }
 }

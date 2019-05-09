@@ -65,7 +65,6 @@ class ProjectAdminController extends AbstractController
 
     /**
      * @Route("/project/images/{id}", name="project_delete_image")
-     * @IsGranted("MANAGE", subject="project")
      */
     public function deleteProjectReference(ProjectImage $image, UploaderHelper $uploaderHelper, EntityManagerInterface $entityManager)
     {

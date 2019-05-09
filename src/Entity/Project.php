@@ -26,7 +26,7 @@ class Project
     private $name;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $description;
 
@@ -36,11 +36,6 @@ class Project
      *
      */
     private $slug;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $imageFilename;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -63,6 +58,12 @@ class Project
      * @ORM\OneToMany(targetEntity="App\Entity\ProjectImage", mappedBy="project", orphanRemoval=true)
      */
     private $projectImages;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="projects")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $category;
 
     public function __construct()
     {
@@ -109,23 +110,6 @@ class Project
         $this->slug = $slug;
 
         return $this;
-    }
-
-    public function getImageFilename(): ?string
-    {
-        return $this->imageFilename;
-    }
-
-    public function setImageFilename(?string $imageFilename): self
-    {
-        $this->imageFilename = $imageFilename;
-
-        return $this;
-    }
-
-    public function getImagePath()
-    {
-        return UploaderHelper::PROJECT_IMAGE.'/'.$this->getImageFilename();
     }
 
     public function getPublishedAt(): ?\DateTimeInterface
@@ -218,4 +202,16 @@ class Project
 
         return $this;
     }*/
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
+
+        return $this;
+    }
 }

@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\File\File;
 class ProjectImageFixture extends AppFixtures implements DependentFixtureInterface
 {
     private $uploaderHelper;
+
     private static $projectImages = [
         'image1.jpg',
         'image2.jpg',

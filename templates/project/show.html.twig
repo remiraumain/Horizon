@@ -1,27 +1,71 @@
 {% extends 'content_base.html.twig' %}
 
 {% block content_body %}
-    <a href="{{ path('project_edit', {'slug': project.slug}) }}"><i class="fas fa-cog"></i></a>
+    {% if project.author is same as(app.user) %}
+        <a href="{{ path('project_edit', {'slug': project.slug}) }}"><i class="fas fa-cog"></i></a>
+    {% endif %}
+    <span>{{ project.category.name }}</span>
     <h1>{{ project.name }}</h1>
 
-    {% for image in project.projectImages %}
-        <a href="{{ uploaded_asset(image.imagePath) }}" target="_blank">
-            <img src="{{ image.imagePath|imagine_filter('squared_thumbnail_medium') }}">
-        </a>
-    {% endfor %}
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            {% for image in project.projectImages %}
+                {% if project.projectImages|length > 1  %}
+                    {% if loop.first %}
+                        <li data-target="#carouselExampleIndicators" data-slide-to="{{ loop.index }}" class="active"></li>
+                    {% else %}
+                        <li data-target="#carouselExampleIndicators" data-slide-to="{{ loop.index }}"></li>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </ol>
+        <div class="carousel-inner">
+            {% for image in project.projectImages %}
+                {% if loop.first %}
+                    <div class="carousel-item active">
+                        <a class="d-flex justify-content-center" href="{{ uploaded_asset(image.imagePath) }}" target="_blank">
+                            <img class="d-block" src="{{ image.imagePath|imagine_filter('slideshow') }}" alt="First slide">
+                        </a>
+                    </div>
+                {% else %}
+                    <div class="carousel-item">
+                        <a class="d-flex justify-content-center" href="{{ uploaded_asset(image.imagePath) }}" target="_blank">
+                            <img class="d-block" src="{{ image.imagePath|imagine_filter('slideshow') }}" alt="Other slide">
+                        </a>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
 
-    <div class="d-flex align-items-center">
-        <a href="{{ path('profile_show', {'id': project.author.id}) }}">
-            <img class="nav-profile-img rounded-circle" src="{{ project.author.imagePath|imagine_filter('squared_thumbnail_small') }}" alt="profile picture">
-        </a>
-        <a class="align-middle" href="{{ path('profile_show', {'id': project.author.id}) }}">
-            {{ project.author.firstName }} {{ project.author.lastName }}
-        </a>
+        {% if project.projectImages|length > 1  %}
+            <a class="carousel-control-prev carousel-control" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon carousel-control-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next carousel-control" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon carousel-control-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        {% endif %}
     </div>
-    <p>{{ project.description }}</p>
+        <div class="d-flex align-items-center">
+            <a href="{{ path('profile_show', {'id': project.author.id}) }}">
+                <img class="nav-profile-img rounded-circle" src="{{ project.author.imagePath|imagine_filter('squared_thumbnail_small') }}" alt="profile picture">
+            </a>
+            <a class="align-middle" href="{{ path('profile_show', {'id': project.author.id}) }}">
+                {{ project.author.firstName }} {{ project.author.lastName }}
+            </a>
+        </div>
+    <div>
+        <p>{{ project.description }}</p>
+    </div>
 {% endblock %}
 
 {% block title %}
 
 {% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/project.css') }}">
+{% endblock %}

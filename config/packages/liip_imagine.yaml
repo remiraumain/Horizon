@@ -34,3 +34,7 @@ liip_imagine:
                     size: [500, 500]
                     mode: outbound
                     allow_upscale: true
+        slideshow:
+            filters:
+                relative_resize:
+                    heighten: 400

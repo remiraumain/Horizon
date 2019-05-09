@@ -14,7 +14,7 @@
                         <div class="col-md-10 no-pad">
                             <div class="user-pad">
                                 <h3>{{ user.firstName }} {{ user.lastName }}</h3>
-                                {% if user == app.user %}
+                                {% if user is same as(app.user) %}
                                     <a class="btn btn-labeled btn-info" href="{{ path('fos_user_profile_edit') }}">
                                         <span class="btn-label"><i class="fa fa-pen"></i></span>Update
                                     </a>
