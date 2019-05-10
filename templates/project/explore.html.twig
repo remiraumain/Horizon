@@ -1,0 +1,21 @@
+{% extends 'content_base.html.twig' %}
+
+{% block content_body %}
+    <div class="flex-wrap d-flex justify-content-center">
+        {% for project in projects %}
+            <div>
+                {% set firstImage = project.projectImages|first %}
+                {% if firstImage %}
+                    <a href="{{ path('project_show', {slug: project.slug}) }}">
+                        <img src="{{ firstImage.imagePath|imagine_filter('squared_thumbnail_small') }}">
+                    </a>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+

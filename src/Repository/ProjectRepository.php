@@ -23,12 +23,35 @@ class ProjectRepository extends ServiceEntityRepository
     /**
      * @return Project[]
      */
+    public function findAllPublished()
+    {
+        return $this->addIsPublishedQueryBuilder()
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    /**
+     * @return Project[]
+     */
     public function findAllPublishedOrderedByNewest()
     {
         return $this->addIsPublishedQueryBuilder()
             //->leftJoin('a.tags', 't')
             //->addSelect('t')
             ->orderBy('a.publishedAt', 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    /**
+     * @return Project[]
+     */
+    public function findAllPublishedByLikes()
+    {
+        return $this->addIsPublishedQueryBuilder()
+            ->orderBy('a.likes', 'DESC')
             ->getQuery()
             ->getResult()
             ;

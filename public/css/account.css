@@ -3,8 +3,8 @@
 }
 
 /* -- color classes -- */
-.spacepurplebg {
-    background-color: #5b4f69;
+.profile-bg {
+    background-color: white;
 }
 
 .white {
@@ -32,12 +32,14 @@ div.user-menu-container a, div.user-menu-container .btn  {
 }
 
 div.user-menu-container .thumbnail {
-   width:100%;
-   min-height:200px;
-   border: 0px!important;
-   padding: 0px;
-   border-radius: 0;
-   border: 0px!important;
+    width:100%;
+    min-height:200px;
+    border: 0px!important;
+    padding: 0px;
+    border-radius: 0;
+    border: 0px!important;
+    display: flex;
+    justify-content: center;
 }
 
 /* -- The btn stylings for the btn icons -- */
@@ -56,14 +58,32 @@ div.user-menu-container .thumbnail {
     padding-bottom: 0;
 }
 
+.d-flex-centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.d-flex-column {
+    flex-direction: column;
+}
+
+.d-flex-row-reverse {
+    flex-direction: row-reverse;
+}
+
 .user-details {
     background: #eee;
     min-height: 333px;
 }
 
 .user-image {
-  max-height:200px;
-  overflow:hidden;
+    max-height:200px;
+    overflow:hidden;
+}
+
+.user-image img {
+    max-height: 200px;
 }
 
 .overview h3 {

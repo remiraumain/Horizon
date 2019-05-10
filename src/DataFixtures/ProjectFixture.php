@@ -24,6 +24,11 @@ class ProjectFixture extends AppFixtures implements DependentFixtureInterface
                 ->setCategory($this->getRandomReference('main_categories'))
             ;
 
+            foreach ($this->getRandomReferences('main_users', 3) as $user)
+            {
+                $project->addLikeUser($user);
+            }
+
             // publish most articles
             if ($this->faker->boolean(70)) {
                 $project->setPublishedAt($this->faker->dateTimeBetween('-100 days', '-1 days'));

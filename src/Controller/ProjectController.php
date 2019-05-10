@@ -3,13 +3,17 @@
 namespace App\Controller;
 
 use App\Entity\Project;
+use App\Entity\User;
 use App\Form\ProjectFormType;
 use App\Repository\ProjectRepository;
 use App\Service\UploaderHelper;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\PersistentCollection;
+use phpDocumentor\Reflection\Types\Integer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\NotNull;
@@ -25,10 +29,11 @@ class ProjectController extends AbstractController
      */
     public function homepage(ProjectRepository $repository)
     {
-        $porjects = $repository->findAllPublishedOrderedByNewest();
+        $projects = $repository->findAllPublishedOrderedByNewest();
+
         return $this->render('project/homepage.html.twig', [
             'controller_name' => 'ProjectController',
-            'projects' => $porjects,
+            'projects' => $projects,
         ]);
     }
 
@@ -131,9 +136,42 @@ class ProjectController extends AbstractController
      */
     public function show(Project $project)
     {
+        $like = $project->getLikeUsers()->contains($this->getUser());
+
         return $this->render('project/show.html.twig', [
             'controller_name' => 'ProjectController',
             'project' => $project,
+            'like' => $like
+        ]);
+    }
+
+    /**
+     * @Route("/project/{slug}/like", name="project_like")
+     */
+    public function like(Project $project, ProjectRepository $projectRepository, EntityManagerInterface $entityManager)
+    {
+        if ($project->getLikeUsers()->contains($this->getUser())) {
+            $project->removeLikeUser($this->getUser());
+        } else {
+            $project->addLikeUser($this->getUser());
+        }
+
+        $entityManager->persist($project);
+        $entityManager->flush();
+
+        return new JsonResponse(['hearts' => $project->getLikeUsers()->count()]);
+    }
+
+    /**
+     * @Route("/project", name="project_explore")
+     */
+    public function explore(ProjectRepository $projectRepository)
+    {
+        $projects = $projectRepository->findAllPublishedByLikes();
+
+        return $this->render('project/explore.html.twig', [
+            'controller_name' => 'ProjectController',
+            'projects' => $projects,
         ]);
     }
 }

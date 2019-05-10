@@ -3,13 +3,15 @@ body {
     position: relative;
     background: #efefee;
     min-height: 45rem;
-    padding-bottom: 80px;
+    margin-top: 1rem;
 }
 
 html {height:100%}
 
 /* NAVIGATION */
-
+.navbar {
+    height: 65px;
+}
 .navbar-bg {
     background: black;
 }

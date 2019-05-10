@@ -17,7 +17,7 @@ class CategoryFixture extends AppFixtures
     protected function loadData(ObjectManager $manager)
     {
         $this->createMany(2, 'main_categories', function ($count) use ($manager) {
-            $randomCategory = $this->faker->randomElement(self::$categories);
+            $randomCategory = self::$categories[$count];
 
             $category = new Category();
             $category->setName($randomCategory);

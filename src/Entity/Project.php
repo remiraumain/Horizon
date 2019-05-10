@@ -65,10 +65,21 @@ class Project
      */
     private $category;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="likedProjects")
+     */
+    private $likeUsers;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $likes;
+
     public function __construct()
     {
         $this->projectReferences = new ArrayCollection();
         $this->projectImages = new ArrayCollection();
+        $this->likeUsers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -211,6 +222,46 @@ class Project
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getLikeUsers(): Collection
+    {
+        return $this->likeUsers;
+    }
+
+    public function addLikeUser(User $likeUser): self
+    {
+        if (!$this->likeUsers->contains($likeUser)) {
+            $this->likeUsers[] = $likeUser;
+        }
+        $this->setLikes();
+
+        return $this;
+    }
+
+    public function removeLikeUser(User $likeUser): self
+    {
+        if ($this->likeUsers->contains($likeUser)) {
+            $this->likeUsers->removeElement($likeUser);
+        }
+        $this->setLikes();
+
+        return $this;
+    }
+
+    public function getLikes(): ?int
+    {
+        return $this->likes;
+    }
+
+    public function setLikes(): self
+    {
+        $this->likes = $this->likeUsers->count();
 
         return $this;
     }

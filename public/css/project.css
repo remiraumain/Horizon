@@ -1,7 +1,64 @@
+.project-heading {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: fit-content;
+    margin: auto;
+    padding-top: 10px;
+}
+
+.project-heading span {
+    width: fit-content;
+    align-self: baseline;
+    position: absolute;
+    top: -10px;
+    color: #999999;
+}
+
+.project-heading h1 {
+    text-align: center;
+}
+
+.edit-icon {
+    position: absolute;
+    top: 30px;
+    right: 25px;
+    font-size: x-large;
+    color: #999999;
+}
+
+.edit-icon:hover {
+    color: #565656;
+}
+
+.carousel {
+    margin: 30px auto;
+}
+
 .carousel-indicators li.active {
     background-color: black;
 }
 
 .carousel-control-icon {
     filter: invert(100%);
+}
+
+.meta-project {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    margin: 0 35px;
+}
+
+.heart {
+    width: fit-content;
+    margin: auto 25px auto auto;
+}
+
+.profile-img {
+    width: 50px;
+    border: 1px solid #fff;
+    margin-right: 5px;
 }

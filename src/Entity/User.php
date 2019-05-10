@@ -54,12 +54,18 @@ class User extends BaseUser
      */
     private $imageFilename;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Project", mappedBy="likeUsers")
+     */
+    private $likedProjects;
+
     public function __construct()
     {
         parent::__construct();
         $this->apiTokens = new ArrayCollection();
         $this->projects = new ArrayCollection();
         $this->projectReferences = new ArrayCollection();
+        $this->likedProjects = new ArrayCollection();
     }
 
     public function getFirstName(): ?string
@@ -175,5 +181,33 @@ class User extends BaseUser
     public function getImagePath()
     {
         return UploaderHelper::PROFILE_IMAGE.'/'.$this->getImageFilename();
+    }
+
+    /**
+     * @return Collection|Project[]
+     */
+    public function getLikedProjects(): Collection
+    {
+        return $this->likedProjects;
+    }
+
+    public function addLikedProject(Project $likedProject): self
+    {
+        if (!$this->likedProjects->contains($likedProject)) {
+            $this->likedProjects[] = $likedProject;
+            $likedProject->addLikeUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLikedProject(Project $likedProject): self
+    {
+        if ($this->likedProjects->contains($likedProject)) {
+            $this->likedProjects->removeElement($likedProject);
+            $likedProject->removeLikeUser($this);
+        }
+
+        return $this;
     }
 }
