@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Project;
 use App\Entity\User;
 use App\Form\ProjectFormType;
+use App\Repository\CategoryRepository;
 use App\Repository\ProjectRepository;
 use App\Service\UploaderHelper;
 use DateTime;
@@ -27,13 +28,27 @@ class ProjectController extends AbstractController
     /**
      * @Route("/", name="app_homepage")
      */
-    public function homepage(ProjectRepository $repository)
+    public function homepage(ProjectRepository $projectRepository, Request $request)
     {
-        $projects = $repository->findAllPublishedOrderedByNewest();
+        $projects = $projectRepository->findAllPublishedLikedBy($this->getUser()->getId());
+        $filter = $request->query->get('filter');
+
+        if (empty($projects) || !is_null($filter)) {
+            $projects = $projectRepository->findAllPublishedByLikes();
+        }
 
         return $this->render('project/homepage.html.twig', [
             'controller_name' => 'ProjectController',
             'projects' => $projects,
+        ]);
+    }
+
+    /**
+     * @Route("/launch", name="app_landing")
+     */
+    public function landing(ProjectRepository $projectRepository, Request $request)
+    {
+        return $this->render('project/landing.html.twig', [
         ]);
     }
 
@@ -146,7 +161,7 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("/project/{slug}/like", name="project_like")
+     * @Route("/project/{slug}/like", name="project_like", methods={"POST"})
      */
     public function like(Project $project, ProjectRepository $projectRepository, EntityManagerInterface $entityManager)
     {
@@ -163,15 +178,25 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("/project", name="project_explore")
+     * @Route("/project", name="project_filter")
      */
-    public function explore(ProjectRepository $projectRepository)
+    public function filter(ProjectRepository $projectRepository, CategoryRepository $categoryRepository, Request $request)
     {
-        $projects = $projectRepository->findAllPublishedByLikes();
+        $categories = $categoryRepository->findAll();
+        $filter = $request->query->get('filter');
+
+        if ($filter)
+        {
+            $projects = $projectRepository->findAllPublishedByCategory($filter);
+        } else {
+            $projects = $projectRepository->findAllPublishedOrderedByNewest();
+        }
 
         return $this->render('project/explore.html.twig', [
             'controller_name' => 'ProjectController',
             'projects' => $projects,
+            'categories' => $categories,
+            'filter' => $filter
         ]);
     }
 }

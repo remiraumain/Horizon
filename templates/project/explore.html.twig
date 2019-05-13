@@ -1,6 +1,17 @@
 {% extends 'content_base.html.twig' %}
 
 {% block content_body %}
+    <select class="filter-select">
+        <option value="{{ path('project_filter') }}">Recent</option>
+        {% for category in categories %}
+            <option value="{{ path('project_filter', {'filter': {'name': category.name, 'id': category.id}}) }}"
+                    {% if filter %}
+                        {{ (category.name in filter.name) ? 'selected' : '' }}
+                    {% endif %}>
+                {{ category.name }}
+            </option>
+        {% endfor %}
+    </select>
     <div class="flex-wrap d-flex justify-content-center">
         {% for project in projects %}
             <div>
@@ -17,5 +28,10 @@
 
 {% block title %}
 
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/filter.js') }}"></script>
 {% endblock %}
 

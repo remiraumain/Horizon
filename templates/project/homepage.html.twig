@@ -2,6 +2,12 @@
 
 {% block content_body %}
 <div class="flex-wrap d-flex justify-content-center">
+    <span class="switcher switcher-1">
+       <input type="checkbox" id="switcher-1">
+       <label for="switcher-1"></label>
+    </span>
+
+    <a href="{{ path('app_homepage') }}">Liked</a>
     {% for project in projects %}
         <div>
         {% set firstImage = project.projectImages|first %}
@@ -17,5 +23,10 @@
 
 {% block title %}
 
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/hompage.css') }}">
 {% endblock %}
 

@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Project;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -52,6 +53,39 @@ class ProjectRepository extends ServiceEntityRepository
     {
         return $this->addIsPublishedQueryBuilder()
             ->orderBy('a.likes', 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    /**
+     * @return Project[]
+     */
+    public function findAllPublishedByCategory(array $filter)
+    {
+        if (!isset($filter['id'])) {
+            return $this->findAllPublishedByLikes();
+        }
+        return $this->addIsPublishedQueryBuilder()
+            ->leftJoin('a.category', 'c')
+            ->addSelect('c')
+            ->andWhere('c.name = :name')
+            ->setParameter('name', $filter['name'])
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    /**
+     * @return Project[]
+     */
+    public function findAllPublishedLikedBy(int $id)
+    {
+        return $this->addIsPublishedQueryBuilder()
+            ->leftJoin('a.likeUsers', 'u')
+            ->addSelect('u')
+            ->andWhere('u.id = :id')
+            ->setParameter('id', $id)
             ->getQuery()
             ->getResult()
             ;

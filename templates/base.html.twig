@@ -10,7 +10,7 @@
             <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
         {% endblock %}
     </head>
-    <body class="pt-lg-5">
+<body class="pt-lg-5">
         {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
             <div class="alert alert-warning" style="margin-bottom: 0;">
                 You are currently switched to this user.
@@ -20,14 +20,14 @@
 
         {% block nav %}
             <nav class="navbar navbar-expand-lg navbar-dark navbar-bg fixed-top">
-                <a style="margin-left: 75px;" class="navbar-brand space-brand" href="{{ path('app_homepage') }}">Horizon</a>
+                <a style="margin-left: 75px;" class="navbar-brand space-brand cta" href="{{ path('app_homepage') }}">Horizon</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a style="color: #fff;" class="nav-link" href="{{ path('project_explore') }}">Explore</a>
+                            <a style="color: #fff;" class="nav-link" href="{{ path('project_filter') }}">Explore</a>
                         </li>
                         <li class="nav-item">
                             <a style="color: #fff;" class="nav-link" href="#">TODO</a>
