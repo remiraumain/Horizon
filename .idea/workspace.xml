@@ -2,37 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8fc237f9-90e6-4873-bfd6-c5aef1ea78c6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/css/main-pages.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/liip_imagine.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/liip_imagine.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/account.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/account.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/hompage.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/login.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/project.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/project.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/transition.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/transition.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/filter.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/filter.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/navbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/navbar.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/project.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/project.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/project_form.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/project_form.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/transition.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/transition.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/ProjectAdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProjectAdminController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/ProjectController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProjectController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/ProjectImage.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/ProjectImage.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/ProjectFormType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/ProjectFormType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/bundles/FOSUserBundle/Registration/register.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/bundles/FOSUserBundle/Registration/register.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/bundles/FOSUserBundle/Registration/register_content.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/bundles/FOSUserBundle/Registration/register_content.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/bundles/FOSUserBundle/Security/login.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/bundles/FOSUserBundle/Security/login.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/bundles/FOSUserBundle/Security/login_content.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/bundles/FOSUserBundle/Security/login_content.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/content_base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/content_base.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/project/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/project/edit.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/project/explore.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/project/explore.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/project/homepage.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/project/homepage.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/project/landing.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/project/landing.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/project/list.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/project/list.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/project/new.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/project/new.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/project/show.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/project/show.html.twig" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -96,11 +66,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/bundles/FOSUserBundle/Security/login_content.html.twig">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="345">
               <caret line="23" column="89" selection-start-line="23" selection-start-column="89" selection-end-line="23" selection-end-column="89" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/public/js/project.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="165">
+              <caret line="11" column="89" selection-start-line="11" selection-start-column="89" selection-end-line="11" selection-end-column="89" />
             </state>
           </provider>
         </entry>
@@ -142,18 +121,6 @@
               <caret line="42" column="37" selection-start-line="42" selection-start-column="37" selection-end-line="42" selection-end-column="37" />
               <folding>
                 <element signature="e#28#52#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/project/edit.html.twig">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-56">
-              <caret line="3" column="29" selection-start-line="3" selection-start-column="29" selection-end-line="3" selection-end-column="29" />
-              <folding>
-                <element signature="e#12#34#0#Twig" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -239,7 +206,6 @@
         <option value="$PROJECT_DIR$/public/js/transition.js" />
         <option value="$PROJECT_DIR$/public/css/navbar.css" />
         <option value="$PROJECT_DIR$/config/packages/liip_imagine.yaml" />
-        <option value="$PROJECT_DIR$/public/js/project.js" />
         <option value="$PROJECT_DIR$/public/js/filter.js" />
         <option value="$PROJECT_DIR$/public/css/explore.css" />
         <option value="$PROJECT_DIR$/public/css/hompage.css" />
@@ -270,6 +236,7 @@
         <option value="$PROJECT_DIR$/templates/bundles/FOSUserBundle/Registration/register_content.html.twig" />
         <option value="$PROJECT_DIR$/public/css/login.css" />
         <option value="$PROJECT_DIR$/templates/bundles/FOSUserBundle/Security/login_content.html.twig" />
+        <option value="$PROJECT_DIR$/public/js/project.js" />
       </list>
     </option>
   </component>
@@ -656,7 +623,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="209347000" />
+    <option name="totallyTimeSpent" value="210274000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="723" extended-state="6" />
@@ -777,13 +744,6 @@
           <folding>
             <element signature="e#12#26#0#Twig" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/project.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="27" selection-start-line="8" selection-start-column="27" selection-end-line="8" selection-end-column="27" />
         </state>
       </provider>
     </entry>
@@ -1118,6 +1078,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
           <caret line="23" column="89" selection-start-line="23" selection-start-column="89" selection-end-line="23" selection-end-column="89" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/project.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="89" selection-start-line="11" selection-start-column="89" selection-end-line="11" selection-end-column="89" />
         </state>
       </provider>
     </entry>
