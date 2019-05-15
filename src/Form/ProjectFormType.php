@@ -39,8 +39,14 @@ class ProjectFormType extends AbstractType
 
         if ($isEdit) {
             $builder->add('description')
-                ->add('save', SubmitType::class, ['label' => 'Save'])
-                ->add('publish', SubmitType::class, ['label' => 'Publish'])
+                ->add('save', SubmitType::class, [
+                    'label' => 'Draft',
+                    'attr' => ['class' => 'button-classic']
+                    ])
+                ->add('publish', SubmitType::class, [
+                    'label' => 'Publish',
+                    'attr' => ['class' => 'button-classic']
+                    ])
             ;
         }
     }

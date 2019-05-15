@@ -10,7 +10,7 @@
             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
         {% endif %}
 
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <h1 class="h3 mb-3 font-weight-normal">Log in</h1>
         <label for="inputUsername" class="sr-only">Username</label>
         <input type="text" value="{{ last_username }}" name="_username" id="inputUsername" class="form-control" placeholder="Email" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
@@ -21,7 +21,7 @@
                 <input type="checkbox" name="_remember_me"> Remember me
             </label>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <button class="btn btn-lg btn-primary btn-block button-classic" type="submit">Log in</button>
     </form>
 
 </div>

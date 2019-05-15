@@ -2,9 +2,103 @@ Dropzone.autoDiscover = false;
 
 $(document).ready(function () {
     var referenceList = new ReferenceList($('.js-reference-list'));
+    var imageList = new ImageList($('.js-image-list'));
 
     initializeDropzone(referenceList);
 });
+
+class ImageList
+{
+    constructor($element) {
+        this.$element = $element;
+        this.images = [];
+        this.render();
+
+        this.$element.on('click', '.js-image-delete', (event) => {
+            this.handleImageDelete(event);
+        });
+
+        $('.form-image').on('submit', (event) => {
+            event.preventDefault();
+            this.addImage(event);
+        });
+
+        $.ajax({
+            url: this.$element.data('url')
+        }).then(data => {
+            this.images = data;
+            this.render();
+        })
+    }
+
+    addImage(event, form) {
+        var url = $(event.currentTarget)[0];
+        $.ajax({
+            url: url.action,
+            method: 'POST',
+            data: new FormData(url),
+            contentType:false,
+            processData:false,
+            cache:false,
+            dataType:"json",
+            error:function(err){
+                if (!$(".alert").length)
+                {
+                    $('<div class="alert alert-danger"></div>').insertAfter('nav');
+                }
+                $(".alert").append("<p class='alert-message'>" + err.responseJSON.detail + "</p>");
+            },
+            success:function(data){
+                if ($(".alert").length)
+                {
+                    $(".alert").toggleClass('in out fade');
+                    setTimeout(function (){$('.alert').remove()}, 850);
+                }
+                this.images.push(data);
+            }.bind(this),
+            complete:function(){
+                console.log("Request finished.");
+                this.render();
+            }.bind(this)
+        })
+    }
+
+    handleImageDelete(event) {
+        const $li = $(event.currentTarget).closest('.list-group-item');
+        const id = $li.data('id');
+        $li.addClass('disabled');
+        $.ajax({
+            url: '/project/images/'+id,
+            method: 'DELETE',
+            error:function(err){
+                if (!$(".alert").length)
+                {
+                    $('<div class="alert alert-danger"></div>').insertAfter('nav');
+                }
+                $(".alert").append("<p class='alert-message'>" + err.responseJSON.detail + "</p>");
+            },
+        }).then(() => {
+            this.images = this.images.filter(image => {
+                return image.id !== id;
+            });
+            this.render();
+        });
+    }
+
+    render() {
+        const itemsHtml = this.images.map(image => {
+            return `
+<li class="list-group-item project-image-list" data-id="${image.id}">
+    <img class="project-image" src="/uploads/project_image/${image.filename}" alt="project's image">
+    <span>
+        <button class="js-image-delete"><i class="fas fa-times-circle project-image-delete"></i></i></button>
+    </span>
+</li>
+`
+        });
+        this.$element.html(itemsHtml.join(''));
+    }
+}
 
 // todo - use Webpack Encore so ES6 syntax is transpiled to ES5
 class ReferenceList

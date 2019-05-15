@@ -3,18 +3,19 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    position: relative;
     width: fit-content;
     margin: auto;
     padding-top: 10px;
 }
 
-.project-heading span {
+.project-heading a:first-child {
     width: fit-content;
     align-self: baseline;
     position: absolute;
-    top: -10px;
+    top: 10px;
+    left: 0;
     color: #999999;
+    text-decoration: none;
 }
 
 .project-heading h1 {
@@ -23,13 +24,13 @@
 
 .edit-icon {
     position: absolute;
-    top: 30px;
-    right: 25px;
+    top: 10px;
+    right: 0;
     font-size: x-large;
     color: #999999;
 }
 
-.edit-icon:hover {
+.edit-icon:hover, .project-heading a:first-child:hover {
     color: #565656;
 }
 
@@ -57,8 +58,11 @@
     margin: auto 25px auto auto;
 }
 
-.profile-img {
-    width: 50px;
-    border: 1px solid #fff;
-    margin-right: 5px;
+.heart a {
+    color: red;
+    text-decoration: none;
+}
+
+.project-text {
+    text-align: justify;
 }

@@ -1,24 +1,55 @@
 {% extends 'content_base.html.twig' %}
 
 {% block content_body %}
-<div class="flex-wrap d-flex justify-content-center">
-    <span class="switcher switcher-1">
-       <input type="checkbox" id="switcher-1">
-       <label for="switcher-1"></label>
-    </span>
 
-    <a href="{{ path('app_homepage') }}">Liked</a>
+<div class="row justify-content-center">
+    <a class="project-filter-link {{ filter ? '' : 'selected' }}" href="{{ path('app_homepage') }}">Popular</a>
+    <a class="project-filter-link {{ filter ? 'selected' : '' }}" href="{{ path('app_homepage', {'filter': 'likes'}) }}" >Likes</a>
+</div>
+<div class="row flex-wrap justify-content-center project-section">
     {% for project in projects %}
-        <div>
         {% set firstImage = project.projectImages|first %}
-            {% if firstImage %}
-            <a href="{{ path('project_show', {slug: project.slug}) }}">
-                <img src="{{ firstImage.imagePath|imagine_filter('squared_thumbnail_small') }}">
-            </a>
+            {% if loop.first %}
+                <div class="col-sm-12 trend-project">
+                    <a href="{{ path('project_show', {slug: project.slug}) }}">
+                        <img src="{{ firstImage.imagePath|imagine_filter('trend_thumbnail_medium') }}">
+                    </a>
+                    <div class="trend-project-desc">
+                        <a class="project-author-info" href="{{ path('profile_show', {'id': project.author.id}) }}">
+                            <img class="rounded-circle" src="{{ project.author.imagePath|imagine_filter('squared_thumbnail_small') }}" alt="profil picture">
+                            <p>{{ project.author.firstName }} {{ project.author.lastName }}</p>
+                        </a>
+                        <a href="{{ path('project_show', {slug: project.slug}) }}">
+                            <p>{{ project.name|title }}</p>
+                        </a>
+                        <span class="project-date">{{ project.publishedAt|date("m.d.Y") }}</span>
+                    </div>
+                </div>
+            {% endif %}
+    {% endfor %}
+    <div class="row justify-content-center">
+        <div class="col-sm-12 other-projects">
+            {% if projects %}
+                {% for project in projects %}
+                    {% set firstImage = project.projectImages|first %}
+                    {% if not loop.first %}
+                        <div>
+                            <a href="{{ path('project_show', {slug: project.slug}) }}">
+                                <img src="{{ firstImage.imagePath|imagine_filter('squared_thumbnail_small') }}">
+                            </a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+
+                <div class="d-flex justify-content-center m-5">
+                    <p class="m-5">Looks like you haven't liked any projects yet !</p>
+                </div>
             {% endif %}
         </div>
-    {% endfor %}
+    </div>
 </div>
+
 {% endblock %}
 
 {% block title %}
@@ -27,6 +58,6 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('css/hompage.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/main-pages.css') }}">
 {% endblock %}
 

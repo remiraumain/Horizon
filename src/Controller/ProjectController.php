@@ -3,15 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Project;
-use App\Entity\User;
 use App\Form\ProjectFormType;
 use App\Repository\CategoryRepository;
 use App\Repository\ProjectRepository;
 use App\Service\UploaderHelper;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\PersistentCollection;
-use phpDocumentor\Reflection\Types\Integer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -20,9 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-/**
- * @IsGranted("ROLE_USER")
- */
+
 class ProjectController extends AbstractController
 {
     /**
@@ -30,16 +25,25 @@ class ProjectController extends AbstractController
      */
     public function homepage(ProjectRepository $projectRepository, Request $request)
     {
-        $projects = $projectRepository->findAllPublishedLikedBy($this->getUser()->getId());
+        if (!$this->getUser()) {
+            return $this->render('project/landing.html.twig', [
+                'controller_name' => 'ProjectController',
+            ]);
+        }
+
         $filter = $request->query->get('filter');
 
-        if (empty($projects) || !is_null($filter)) {
+        if (!is_null($filter) && $filter === 'likes') {
+            $projects = $projectRepository->findAllPublishedLikedBy($this->getUser()->getId());
+
+        } else {
             $projects = $projectRepository->findAllPublishedByLikes();
         }
 
         return $this->render('project/homepage.html.twig', [
             'controller_name' => 'ProjectController',
             'projects' => $projects,
+            'filter' => $filter,
         ]);
     }
 
@@ -54,6 +58,7 @@ class ProjectController extends AbstractController
 
     /**
      * @Route("admin/project/new", name="project_new")
+     * @IsGranted("ROLE_USER")
      */
     public function new(EntityManagerInterface $entityManager, Request $request, UploaderHelper $uploaderHelper)
     {
@@ -98,40 +103,36 @@ class ProjectController extends AbstractController
                 ]),
             ]
         );
-
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($violations->count() > 0) {
+                $this->addFlash('error', $violations[0]->getMessage());
+
+                return $this->render('project/edit.html.twig', [
+                    'form' => $form->createView(),
+                    'project' => $project,
+                ]);
+            }
+            if (!$project->getProjectImages()->count() > 0) {
+                $this->addFlash('error', 'Please upload some images 🤨');
+
+                return $this->render('project/edit.html.twig', [
+                    'form' => $form->createView(),
+                    'project' => $project,
+                ]);
+            }
+
             $nextAction = $form->get('save')->isClicked()
                 ? 'task_new'
                 : 'task_publish';
+
             if ($nextAction === 'task_publish') {
-                if ($violations->count() === 0) {
-                    if ($project->getProjectImages()->count() > 0) {
-                        $project->setPublishedAt(new DateTime('now'));
-                        $this->addFlash('success', 'Project published ✅');
-                        $em->persist($project);
-                        $em->flush();
-
-                        return $this->redirectToRoute('project_show', [
-                            'slug' => $project->getSlug(),
-                        ]);
-                    } else {
-                        $this->addFlash('error', 'Please upload some images 🤨');
-
-                        return $this->render('project/edit.html.twig', [
-                            'form' => $form->createView(),
-                            'project' => $project,
-                        ]);
-                    }
-                } else {
-                    $this->addFlash('error', current($violations[0]));
-
-                    return $this->render('project/edit.html.twig', [
-                        'form' => $form->createView(),
-                        'project' => $project,
-                    ]);
-                }
+                $project->setPublishedAt(new DateTime('now'));
+                $this->addFlash('success', 'Project published ✅');
+            } else {
+                $project->setPublishedAt(null);
+                $this->addFlash('success', 'Project saved in the drafts 🥰');
             }
-            $this->addFlash('success', 'Project saved 🥰');
+
             $em->persist($project);
             $em->flush();
 
@@ -148,6 +149,7 @@ class ProjectController extends AbstractController
 
     /**
      * @Route("/project/{slug}", name="project_show")
+     * @IsGranted("ROLE_USER")
      */
     public function show(Project $project)
     {
@@ -162,6 +164,7 @@ class ProjectController extends AbstractController
 
     /**
      * @Route("/project/{slug}/like", name="project_like", methods={"POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function like(Project $project, ProjectRepository $projectRepository, EntityManagerInterface $entityManager)
     {
@@ -179,14 +182,14 @@ class ProjectController extends AbstractController
 
     /**
      * @Route("/project", name="project_filter")
+     * @IsGranted("ROLE_USER")
      */
     public function filter(ProjectRepository $projectRepository, CategoryRepository $categoryRepository, Request $request)
     {
         $categories = $categoryRepository->findAll();
         $filter = $request->query->get('filter');
 
-        if ($filter)
-        {
+        if ($filter) {
             $projects = $projectRepository->findAllPublishedByCategory($filter);
         } else {
             $projects = $projectRepository->findAllPublishedOrderedByNewest();

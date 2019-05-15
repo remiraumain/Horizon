@@ -2,12 +2,13 @@
 
 {% block content_body %}
     <div class="project-heading">
-        <span>{{ project.category.name }}</span>
+        <a href="{{ path('project_filter', {'filter': {'name': project.category.name, 'id': project.category.id}}) }}">{{ project.category.name }}</a>
         <h1>{{ project.name }}</h1>
+        {% if project.author is same as(app.user) %}
+            <a href="{{ path('project_edit', {'slug': project.slug}) }}"><i class="fas fa-cog edit-icon"></i></a>
+        {% endif %}
     </div>
-    {% if project.author is same as(app.user) %}
-        <a href="{{ path('project_edit', {'slug': project.slug}) }}"><i class="fas fa-cog edit-icon"></i></a>
-    {% endif %}
+
 
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
@@ -55,18 +56,15 @@
             <span class="js-like-project-count">{{ project.likeUsers|length }}</span>
             <a href="{{ path('project_like', {'slug': project.slug}) }}" class="{% if like %}fas{% else %}far{% endif %} fa-heart like-article js-like-project"></a>
         </div>
-        <div class="d-flex align-items-center">
-            <a href="{{ path('profile_show', {'id': project.author.id}) }}">
-                <img class="profile-img rounded-circle" src="{{ project.author.imagePath|imagine_filter('squared_thumbnail_small') }}" alt="profile picture">
-            </a>
-            <a class="align-middle" href="{{ path('profile_show', {'id': project.author.id}) }}">
-                {{ project.author.firstName }} {{ project.author.lastName }}
-            </a>
-        </div>
+        <a class="project-author-info" href="{{ path('profile_show', {'id': project.author.id}) }}">
+            <img class="rounded-circle" src="{{ project.author.imagePath|imagine_filter('squared_thumbnail_small') }}" alt="profil picture">
+            <p>{{ project.author.firstName }} {{ project.author.lastName }}</p>
+        </a>
     </div>
-    <div class="article-text">
+    <div class="project-text mt-3">
         <p>{{ project.description }}</p>
     </div>
+    <span class="project-date">{{ project.publishedAt|date("m.d.Y") }}</span>
 {% endblock %}
 
 {% block title %}

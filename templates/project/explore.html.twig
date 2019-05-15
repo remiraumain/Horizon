@@ -1,33 +1,45 @@
 {% extends 'content_base.html.twig' %}
 
 {% block content_body %}
-    <select class="filter-select">
-        <option value="{{ path('project_filter') }}">Recent</option>
-        {% for category in categories %}
-            <option value="{{ path('project_filter', {'filter': {'name': category.name, 'id': category.id}}) }}"
-                    {% if filter %}
-                        {{ (category.name in filter.name) ? 'selected' : '' }}
-                    {% endif %}>
-                {{ category.name }}
-            </option>
-        {% endfor %}
-    </select>
-    <div class="flex-wrap d-flex justify-content-center">
-        {% for project in projects %}
-            <div>
+
+    <div class="dropdown show">
+        <a class="btn btn-secondary dropdown-toggle filter-select" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Category
+        </a>
+
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item {{ filter ? '' : 'selected' }}" href="{{ path('project_filter') }}">Recent</a>
+            {% for category in categories %}
+                <a href="{{ path('project_filter', {'filter': {'name': category.name, 'id': category.id}}) }}" class="dropdown-item
+                        {% if filter %}
+                            {{ (category.name in filter.name) ? 'selected' : '' }}
+                        {% endif %}">
+                    {{ category.name }}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-sm-12 other-projects">
+            {% for project in projects %}
                 {% set firstImage = project.projectImages|first %}
-                {% if firstImage %}
+                <div>
                     <a href="{{ path('project_show', {slug: project.slug}) }}">
                         <img src="{{ firstImage.imagePath|imagine_filter('squared_thumbnail_small') }}">
                     </a>
-                {% endif %}
-            </div>
-        {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}
 
 {% block title %}
 
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/main-pages.css') }}">
 {% endblock %}
 
 {% block javascripts %}

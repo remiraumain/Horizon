@@ -1,0 +1,89 @@
+.project-filter-link {
+    outline:none;
+    border:none;
+    text-decoration:none!important;
+    text-transform:uppercase;
+    background:#202020;
+    color:#eaeaea;
+    box-sizing:border-box;
+    padding:10px 40px;
+    margin: 0 10px 20px 10px;
+    width: 200px;
+    text-align: center;
+}
+
+.project-filter-link:hover, .project-filter-link:active {
+    color: #fec503;
+}
+
+.trend-project {
+    display: flex;
+    justify-content: center;
+}
+
+.project-section {
+}
+
+.trend-project {
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+    padding: 0 10%;
+    margin-bottom: 30px;
+}
+
+.trend-project img {
+    padding: 0;
+}
+
+.trend-project div {
+    position: absolute;
+    background-color: white;
+    width: 40%;
+    height: 80%;
+    padding: 50px 0 0 50px;
+    bottom: 0;
+    left: 10%;
+    box-shadow: -10px 10px 10px #EEEEF0;
+}
+
+.project-section > div:first-child div a {
+    text-decoration: none;
+}
+
+.project-section > div:first-child div a:nth-child(2) p {
+    font-size: 1.5em;
+    margin: 10px 0;
+    color: black;
+}
+
+.other-projects {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    padding: 0 35px;
+}
+
+.other-projects div {
+    margin: 10px;
+}
+
+/* Explore page */
+
+.filter-select {
+    outline:none!important;
+    border:none!important;
+    border-radius:0!important;
+    text-decoration:none!important;
+    text-transform:uppercase!important;
+    background:#202020!important;
+    color:#eaeaea!important;
+    box-sizing:border-box!important;
+    padding:10px 40px!important;
+    margin: 0 10px 20px 10px!important;
+}
+
+.selected:hover {
+    color: black!important;
+}

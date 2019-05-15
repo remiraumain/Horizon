@@ -38,3 +38,9 @@ liip_imagine:
             filters:
                 relative_resize:
                     heighten: 400
+        trend_thumbnail_medium:
+            filters:
+                thumbnail:
+                    size: [800, 500]
+                    mode: outbound
+                    allow_upscale: true

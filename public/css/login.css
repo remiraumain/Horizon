@@ -2,6 +2,10 @@ body {
     background-color: #fff;
 }
 
+.button-classic {
+    margin: auto;
+}
+
 .form-signin {
     width: 100%;
     max-width: 330px;

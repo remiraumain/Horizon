@@ -1,46 +1,59 @@
 {% extends 'content_base.html.twig' %}
 
 {% block content_body %}
-    <a href="{{ path('project_new') }}" class="btn btn-primary pull-right">
-        Create <span class="fa fa-plus-circle"></span>
-    </a>
-    <h1>All Projects</h1>
-
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Published?</th>
-            <th>Edit</th>
-            <th>Remove</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for project in projects %}
-            <tr>
-                <td>{{ project.name }}</td>
-                <td>{{ project.author.email }}</td>
-                <td>
-                    <span class="fa fa-{{ project.isPublished ? 'check' : 'times' }}"></span>
-                </td>
-                <td>
-                    <a href="{{ path('project_edit', {
-                        slug: project.slug
-                    }) }}">
-                        <span class="fa fa-pen"></span>
-                    </a>
-                </td>
-                <td>
-                    <a href="{{ path('project_delete', {
-                        id: project.id
-                    }) }}">
-                        <span class="fa fa-trash"></span>
-                    </a>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="list-admin mt-5">
+        {% if projects %}
+            <div class="list-head">
+                <a href="{{ path('project_new') }}" class="btn btn-primary pull-right">
+                    Create <span class="fa fa-plus-circle"></span>
+                </a>
+                <h1>All Projects</h1>
+            </div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Published?</th>
+                    <th>Edit</th>
+                    <th>Remove</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for project in projects %}
+                    <tr>
+                        <td>{{ project.name }}</td>
+                        <td>{{ project.author.email }}</td>
+                        <td>
+                            <span class="list-admin-icon fa fa-{{ project.isPublished ? 'check' : 'times' }}"></span>
+                        </td>
+                        <td>
+                            <a href="{{ path('project_edit', {
+                                slug: project.slug
+                            }) }}">
+                                <span class="list-admin-icon fa fa-pen"></span>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{{ path('project_delete', {
+                                id: project.id
+                            }) }}">
+                                <span class="list-admin-icon fa fa-trash"></span>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="d-flex justify-content-center m-5">
+                <p class="m-5">Looks like you haven't created any projects yet !</p>
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}" >
+{% endblock %}

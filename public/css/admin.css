@@ -1,0 +1,38 @@
+body {
+    background-color: white;
+}
+
+.background-block {
+    display: none;
+}
+
+.list-admin table a {
+    color: #fec503;
+    text-decoration: none;
+}
+
+.list-admin table a:hover {
+    color: black;
+}
+
+.list-head {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+
+.list-head a {
+    height: fit-content;
+    background-color: #fec503;
+    border-color: #fec503;
+}
+
+.list-head a:hover {
+    background-color: black;
+    border-color: black;
+}
+
+.list-admin-icon {
+    display: flex;
+    justify-content: center;
+}

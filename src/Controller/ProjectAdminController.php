@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Count;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -29,18 +30,17 @@ class ProjectAdminController extends AbstractController
     public function uploadProjectImage(Project $project, Request $request, UploaderHelper $uploaderHelper, EntityManagerInterface $entityManager, ValidatorInterface $validator)
     {
         /** @var UploadedFile $uploadedFile */
-        $uploadedFile = $request->files->get('image');
-
+        $uploadedFile = $request->files->get('image-upload');
 
         $violations = $validator->validate(
             $uploadedFile,
             [
                 new NotBlank([
-                    'message' => 'Please select a file to upload'
+                    'message' => 'Please select an image to upload'
                 ]),
                 new Image([
                     'maxSize' => '5M',
-                ])
+                ]),
             ]
         );
 
@@ -58,18 +58,53 @@ class ProjectAdminController extends AbstractController
         $entityManager->persist($projectImage);
         $entityManager->flush();
 
-        return $this->redirectToRoute('project_edit', [
-            'slug' => $project->getSlug()
-        ]);
+        return $this->json(
+            $projectImage,
+            201,
+            [],
+            [
+                'groups' => ['main']
+            ]
+        );
     }
 
     /**
-     * @Route("/project/images/{id}", name="project_delete_image")
+     * @Route("/project/{slug}/images", name="project_list_images", methods={"GET"})
      */
-    public function deleteProjectReference(ProjectImage $image, UploaderHelper $uploaderHelper, EntityManagerInterface $entityManager)
+    public function getProjectImage(Project $project)
+    {
+        return $this->json(
+            $project->getProjectImages(),
+            200,
+            [],
+            [
+                'groups' => ['main']
+            ]
+        );
+    }
+
+    /**
+     * @Route("/project/images/{id}", name="project_delete_image", methods={"DELETE"})
+     */
+    public function deleteProjectReference(ProjectImage $image, UploaderHelper $uploaderHelper, EntityManagerInterface $entityManager, ValidatorInterface $validator)
     {
         $project = $image->getProject();
         $this->denyAccessUnlessGranted('MANAGE', $project);
+
+
+        $violations = $validator->validate(
+            $project->getProjectImages()->getValues(),
+            [
+                new Count([
+                    'min' => 2,
+                    'minMessage' => 'Well.. you need at least one image of your project so I am not deleting it !',
+                ])
+            ]
+        );
+
+        if ($violations->count() > 0) {
+            return $this->json($violations, 400);
+        }
 
         $entityManager->remove($image);
         $entityManager->flush();
