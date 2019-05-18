@@ -64,6 +64,8 @@ body {
 
 .anim-trans {
     animation: anim 4s ease-in-out;
+    animation-fill-mode:forwards;
+    -webkit-animation-fill-mode: forwards;
 }
 
 @keyframes anim{
@@ -71,12 +73,8 @@ body {
     20%  { z-index:11;\transform: skewX(5deg) translateX(-100%); }
     40%   { transform: skewX(0deg) translateX(0);
         width:100%; z-index:11; box-shadow: none;}
-    60%   { transform: skewX(0deg) translateX(0);
+    100%   { transform: skewX(0deg) translateX(0);
         width:100%;z-index:11; box-shadow: none;}
-    80%   { transform: skewX(1deg) translateX(-100%);
-        width:60%;z-index:11; box-shadow: none;}
-    100%   { transform: skewX(-5deg) translateX(-50px);
-        width:30%;z-index:1; box-shadow: none;}
 }
 
 @media (max-width : 900px) {

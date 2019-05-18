@@ -87,6 +87,25 @@
         </div>
     {% endif %}
     </div>
+
+    {% if project.comments|length  %}
+    <div class="row mt-5">
+        {% for comment in project.comments %}
+        <div class="d-flex d-flex-column col-sm-12 comment p-2 mt-3">
+            <a class="project-author-info" href="{{ path('profile_show', {'id': comment.author.id}) }}">
+                {% if project.author.imageFilename %}
+                    <img class="rounded-circle" src="{{ comment.author.imagePath|imagine_filter('squared_thumbnail_small') }}" alt="profil picture">
+                {% else %}
+                    <i class="far fa-laugh-beam default-profile-image"></i>
+                {% endif %}
+                <p>{{ comment.author.firstName }} {{ comment.author.lastName }}</p>
+            </a>
+            <p class="comment-content">{{ comment.content }}</p>
+            <span class="project-date">{{ comment.createdAt|date("m.d.Y") }}</span>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
 {% endblock %}
 
 {% block title %}

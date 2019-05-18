@@ -83,3 +83,23 @@
 .reference-item p {
     margin: 0;
 }
+
+.comment {
+    background-color: white;
+    border-radius: 10px;
+}
+
+.comment .project-author-info {
+    margin-left: 35px;
+}
+
+.comment-content {
+    text-align: justify;
+    margin-top: 10px;
+    padding: 0 15px 0 15px;
+}
+
+.comment .project-date {
+    padding-right: 15px;
+    align-self: flex-end;
+}

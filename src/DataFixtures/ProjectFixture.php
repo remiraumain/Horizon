@@ -18,7 +18,7 @@ class ProjectFixture extends AppFixtures implements DependentFixtureInterface
     protected function loadData(ObjectManager $manager)
     {
         $user = $this->getRandomReference('main_users');
-        $this->createMany(10, 'main_projects', function ($count) use ($manager) {
+        $this->createMany(100, 'main_projects', function ($count) use ($manager) {
             $project = new Project();
             $project->setAuthor($this->getRandomReference('main_users'))
                 ->setCategory($this->getRandomReference('main_categories'))
