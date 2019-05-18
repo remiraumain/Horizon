@@ -57,14 +57,36 @@
             <a href="{{ path('project_like', {'slug': project.slug}) }}" class="{% if like %}fas{% else %}far{% endif %} fa-heart like-article js-like-project"></a>
         </div>
         <a class="project-author-info" href="{{ path('profile_show', {'id': project.author.id}) }}">
-            <img class="rounded-circle" src="{{ project.author.imagePath|imagine_filter('squared_thumbnail_small') }}" alt="profil picture">
+            {% if project.author.imageFilename %}
+                <img class="rounded-circle" src="{{ project.author.imagePath|imagine_filter('squared_thumbnail_small') }}" alt="profil picture">
+            {% else %}
+                <i class="far fa-laugh-beam default-profile-image"></i>
+            {% endif %}
             <p>{{ project.author.firstName }} {{ project.author.lastName }}</p>
         </a>
     </div>
-    <div class="project-text mt-3">
-        <p>{{ project.description }}</p>
+    <div class="row">
+        <div class="{{ project.projectReferences|length ? 'col-sm-9' : 'col-sm-12' }}">
+            <div class="project-text mt-3">
+                <p>{{ project.description }}</p>
+            </div>
+            <span class="project-date">{{ project.publishedAt|date("m.d.Y") }}</span>
+        </div>
+    {% if project.projectReferences|length  %}
+        <div class="d-flex-column col-sm-3">
+            <ul class="list-group pt-3">
+                {% for reference in project.projectReferences %}
+                    <li class="list-group-item d-flex reference-item">
+                        <p>{{ reference.originalFilename }}</p>
+                        <span>
+                        <a href="/project/references/{{ reference.id }}/download"><span class="fa fa-download"></span></a>
+                    </span>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
     </div>
-    <span class="project-date">{{ project.publishedAt|date("m.d.Y") }}</span>
 {% endblock %}
 
 {% block title %}

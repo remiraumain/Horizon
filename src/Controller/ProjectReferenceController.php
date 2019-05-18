@@ -58,7 +58,7 @@ class ProjectReferenceController extends AbstractController
                     'message' => 'Please select a file to upload'
                 ]),
                 new File([
-                    'maxSize' => '5M',
+                    'maxSize' => '150M',
                     'mimeTypes' => [
                         'image/*',
                         'application/pdf',
@@ -67,7 +67,8 @@ class ProjectReferenceController extends AbstractController
                         'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
                         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
                         'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-                        'text/plain'
+                        'text/plain',
+                        'video/*',
                     ],
                 ])
             ]

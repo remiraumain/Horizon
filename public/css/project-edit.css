@@ -64,3 +64,30 @@ input[type="file"] {
 .project-image-list:hover .js-image-delete {
     display: block;
 }
+
+.js-reference-list {
+    padding: 0;
+}
+
+.list-group-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.drag-handle {
+    cursor: grab;
+}
+
+.js-reference-delete {
+    background: transparent;
+    border: none
+}
+
+.fa-download {
+    color: black;
+}
+
+.js-reference-delete:hover i, .fa-download:hover {
+    color: #fec503;
+}

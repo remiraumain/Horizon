@@ -12,11 +12,15 @@
             {% if loop.first %}
                 <div class="col-sm-12 trend-project">
                     <a href="{{ path('project_show', {slug: project.slug}) }}">
-                        <img src="{{ firstImage.imagePath|imagine_filter('trend_thumbnail_medium') }}">
+                        <img src="{{ firstImage.imagePath|imagine_filter('trend_thumbnail_medium') }}" alt="project picture">
                     </a>
                     <div class="trend-project-desc">
                         <a class="project-author-info" href="{{ path('profile_show', {'id': project.author.id}) }}">
-                            <img class="rounded-circle" src="{{ project.author.imagePath|imagine_filter('squared_thumbnail_small') }}" alt="profil picture">
+                            {% if project.author.imageFilename %}
+                                <img class="rounded-circle" src="{{ project.author.imagePath|imagine_filter('squared_thumbnail_small') }}" alt="profil picture">
+                            {% else %}
+                                <i class="far fa-laugh-beam default-profile-image"></i>
+                            {% endif %}
                             <p>{{ project.author.firstName }} {{ project.author.lastName }}</p>
                         </a>
                         <a href="{{ path('project_show', {slug: project.slug}) }}">
@@ -35,7 +39,7 @@
                     {% if not loop.first %}
                         <div>
                             <a href="{{ path('project_show', {slug: project.slug}) }}">
-                                <img src="{{ firstImage.imagePath|imagine_filter('squared_thumbnail_small') }}">
+                                <img src="{{ firstImage.imagePath|imagine_filter('squared_thumbnail_small') }}" alt="project picture">
                             </a>
                         </div>
                     {% endif %}

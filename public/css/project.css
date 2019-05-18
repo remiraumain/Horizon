@@ -8,6 +8,10 @@
     padding-top: 10px;
 }
 
+.project-heading h1 {
+    word-break: break-word;
+}
+
 .project-heading a:first-child {
     width: fit-content;
     align-self: baseline;
@@ -46,6 +50,10 @@
     filter: invert(100%);
 }
 
+.default-profile-image {
+    font-size: 2.5em;
+}
+
 .meta-project {
     display: flex;
     justify-content: space-between;
@@ -65,4 +73,13 @@
 
 .project-text {
     text-align: justify;
+}
+
+.reference-item {
+    align-items: center;
+    justify-content: space-between;
+}
+
+.reference-item p {
+    margin: 0;
 }

@@ -14,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -98,11 +99,12 @@ class ProjectController extends AbstractController
         $violations = $validator->validate(
             $desc,
             [
-                new NotNull([
+                new NotBlank([
                     'message' => 'Don\'t forget the description of your project'
                 ]),
             ]
         );
+
         if ($form->isSubmitted() && $form->isValid()) {
             if ($violations->count() > 0) {
                 $this->addFlash('error', $violations[0]->getMessage());

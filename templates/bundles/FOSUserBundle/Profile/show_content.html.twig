@@ -4,11 +4,15 @@
     <div class="container">
         <div class="user-menu-container square">
             <div class="col-md-12 user-details d-flex-centered d-flex-column">
-                <a href="{{ uploaded_asset(user.imagePath) }}" target="_blank">
-                    <div class="user-image">
-                        <img src="{{ user.imagePath|imagine_filter('squared_thumbnail_medium') }}">
-                    </div>
-                </a>
+                {% if user.imageFilename %}
+                    <a href="{{ uploaded_asset(user.imagePath) }}" target="_blank">
+                        <div class="user-image">
+                            <img src="{{ user.imagePath|imagine_filter('squared_thumbnail_medium') }}" alt="profile picture">
+                        </div>
+                    </a>
+                {% else %}
+                    <i class="far fa-laugh-beam default-profile-image"></i>
+                {% endif %}
                 <div class="col-md-10 no-pad d-flex-centered">
                     <div class="user-pad d-flex-centered d-flex-column">
                         <h3>{{ user.firstName }} {{ user.lastName }}</h3>

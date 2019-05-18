@@ -50,35 +50,13 @@ div.user-menu-container .thumbnail {
     justify-content: center;
 }
 
+.default-profile-image {
+    font-size: 5em;
+}
+
 /* -- The btn stylings for the btn icons -- */
 .btn-label {position: relative;left: -12px;display: inline-block;padding: 6px 12px;background: rgba(0,0,0,0.15);border-radius: 3px 0 0 3px;}
 .btn-labeled {padding-top: 0;padding-bottom: 0;}
-
-/* -- Custom classes for the snippet, won't effect any existing bootstrap classes of your site, but can be reused. -- */
-
-.user-pad {
-    padding: 20px 25px;
-}
-
-.no-pad {
-    padding-right: 0;
-    padding-left: 0;
-    padding-bottom: 0;
-}
-
-.d-flex-centered {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.d-flex-column {
-    flex-direction: column;
-}
-
-.d-flex-row-reverse {
-    flex-direction: row-reverse;
-}
 
 .user-details {
     background: #EEEEF0;

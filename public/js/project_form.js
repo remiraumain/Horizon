@@ -46,7 +46,7 @@ class ImageList
                 {
                     $('<div class="alert alert-danger"></div>').insertAfter('nav');
                 }
-                $(".alert").append("<p class='alert-message'>" + err.responseJSON.detail + "</p>");
+                $(".alert").append(err.responseJSON.detail);
             },
             success:function(data){
                 if ($(".alert").length)
@@ -75,7 +75,7 @@ class ImageList
                 {
                     $('<div class="alert alert-danger"></div>').insertAfter('nav');
                 }
-                $(".alert").append("<p class='alert-message'>" + err.responseJSON.detail + "</p>");
+                $(".alert").append(err.responseJSON.detail);
             },
         }).then(() => {
             this.images = this.images.filter(image => {
@@ -91,7 +91,7 @@ class ImageList
 <li class="list-group-item project-image-list" data-id="${image.id}">
     <img class="project-image" src="/uploads/project_image/${image.filename}" alt="project's image">
     <span>
-        <button class="js-image-delete"><i class="fas fa-times-circle project-image-delete"></i></i></button>
+        <button class="js-image-delete"><i class="fas fa-times-circle project-image-delete"></i></button>
     </span>
 </li>
 `
@@ -198,6 +198,7 @@ function initializeDropzone(referenceList) {
     }
     var dropzone = new Dropzone(formElement, {
         paramName: 'reference',
+        timeout: 360000,
         init: function () {
             this.on('success', function (file, data) {
                 referenceList.addReference(data);

@@ -5,10 +5,17 @@
 
 .nav-link-img {
     padding: 0!important;
+    display: flex;
+    align-items: center;
 }
 
 .nav-profile-img {
     height: 50px;
+    padding-right: 5px;
+}
+
+.fa-laugh-beam {
+    font-size: 1.5em;
 }
 
 .navbar-nav {

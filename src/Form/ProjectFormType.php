@@ -38,7 +38,9 @@ class ProjectFormType extends AbstractType
         ;
 
         if ($isEdit) {
-            $builder->add('description')
+            $builder->add('description', null, [
+                'empty_data' => '',
+            ])
                 ->add('save', SubmitType::class, [
                     'label' => 'Draft',
                     'attr' => ['class' => 'button-classic']

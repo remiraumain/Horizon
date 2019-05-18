@@ -13,8 +13,8 @@
             <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
         {% endblock %}
     </head>
-<body>
-<div class="background-block"></div>
+    <body>
+        <div class="background-block"></div>
         {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
             <div class="alert alert-warning" style="margin-bottom: 0;">
                 You are currently switched to this user.
@@ -32,13 +32,17 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarResponsive">
                         <ul class="navbar-nav text-uppercase ml-auto">
-                            <li class="nav-item">
-                                <a class="nav-link js-scroll-trigger" href="{{ path('project_filter') }}" >Explore</a>
-                            </li>
                             {% if is_granted('ROLE_USER') %}
+                                <li class="nav-item">
+                                    <a class="nav-link js-scroll-trigger" href="{{ path('project_filter') }}" >Explore</a>
+                                </li>
                                 <li class="nav-item dropdown " >
                                     <a class="nav-link nav-link-img dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"  aria-expanded="false">
-                                        <img class="nav-profile-img rounded-circle" src="{{ app.user.imagePath|imagine_filter('squared_thumbnail_small') }}">
+                                        {% if app.user.imageFilename %}
+                                            <img class="nav-profile-img rounded-circle" src="{{ app.user.imagePath|imagine_filter('squared_thumbnail_small') }}">
+                                        {% else %}
+                                            <i class="far fa-laugh-beam"></i>
+                                        {% endif %}
                                     </a>
                                     <div class="dropdown-menu dropdown-profile-img" >
                                         <a class="dropdown-item" href="{{ path('fos_user_profile_show') }}">Profile</a>
@@ -71,8 +75,9 @@
                 {{ message }}
             </div>
         {% endfor %}
-
-        {% block body %}{% endblock %}
+        <div class="content-wrap">
+            {% block body %}{% endblock %}
+        </div>
 
         {% block footer %}
             <!-- Footer -->

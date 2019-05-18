@@ -25,7 +25,7 @@
                 {% set firstImage = project.projectImages|first %}
                 <div>
                     <a href="{{ path('project_show', {slug: project.slug}) }}">
-                        <img src="{{ firstImage.imagePath|imagine_filter('squared_thumbnail_small') }}">
+                        <img src="{{ firstImage.imagePath|imagine_filter('squared_thumbnail_small') }}" alt="project picture">
                     </a>
                 </div>
             {% endfor %}
