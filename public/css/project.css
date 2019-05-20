@@ -89,6 +89,20 @@
     border-radius: 10px;
 }
 
+.comment div:first-child {
+    justify-content: space-between;
+}
+
+.comment-delete {
+    font-size: 1.5em;
+    margin-right: 5px;
+    color: black;
+}
+
+.comment-delete:hover {
+    color: #fec503;
+}
+
 .comment .project-author-info {
     margin-left: 35px;
 }

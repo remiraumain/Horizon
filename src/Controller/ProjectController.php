@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Project;
 use App\Form\ProjectFormType;
 use App\Repository\CategoryRepository;
@@ -153,14 +154,39 @@ class ProjectController extends AbstractController
      * @Route("/project/{slug}", name="project_show")
      * @IsGranted("ROLE_USER")
      */
-    public function show(Project $project)
+    public function show(Project $project, Request $request, EntityManagerInterface $entityManager)
     {
         $like = $project->getLikeUsers()->contains($this->getUser());
+
+        $comment = new Comment();
+
+        $form = $this->createFormBuilder($comment)
+            ->add('content')
+            ->getForm();
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setAuthor($this->getUser());
+            $comment->setProject($project);
+
+            if (!$comment->getCreatedAt()) {
+                $comment->setCreatedAt(new \DateTime());
+            }
+
+            $comment->setUpdatedAt(new \DateTime());
+
+            $entityManager->persist($comment);
+            $entityManager->flush();
+
+            $this->addFlash('success','Comment posted !');
+            return $this->redirect($request->getUri());
+        }
 
         return $this->render('project/show.html.twig', [
             'controller_name' => 'ProjectController',
             'project' => $project,
-            'like' => $like
+            'like' => $like,
+            'form' => $form->createView(),
         ]);
     }
 

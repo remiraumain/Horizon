@@ -22,7 +22,11 @@
                 <tbody>
                 {% for project in projects %}
                     <tr>
-                        <td>{{ project.name }}</td>
+                        <td><a href="{{ path('project_show', {
+                                slug: project.slug
+                            }) }}">
+                                {{ project.name }}
+                            </a></td>
                         <td>{{ project.author.email }}</td>
                         <td>
                             <span class="list-admin-icon fa fa-{{ project.isPublished ? 'check' : 'times' }}"></span>

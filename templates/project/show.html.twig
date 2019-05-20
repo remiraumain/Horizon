@@ -87,19 +87,31 @@
         </div>
     {% endif %}
     </div>
+    <div class="mt-5">
+        {{ form_start(form) }}
+        {{ form_row(form.content, {'label': 'Comment'}) }}
+
+        <button type="submit" class="button-classic">Valider</button>
+        {{ form_end(form) }}
+    </div>
 
     {% if project.comments|length  %}
     <div class="row mt-5">
         {% for comment in project.comments %}
         <div class="d-flex d-flex-column col-sm-12 comment p-2 mt-3">
-            <a class="project-author-info" href="{{ path('profile_show', {'id': comment.author.id}) }}">
-                {% if project.author.imageFilename %}
-                    <img class="rounded-circle" src="{{ comment.author.imagePath|imagine_filter('squared_thumbnail_small') }}" alt="profil picture">
-                {% else %}
-                    <i class="far fa-laugh-beam default-profile-image"></i>
+            <div class="d-flex">
+                <a class="project-author-info" href="{{ path('profile_show', {'id': comment.author.id}) }}">
+                    {% if project.author.imageFilename %}
+                        <img class="rounded-circle" src="{{ comment.author.imagePath|imagine_filter('squared_thumbnail_small') }}" alt="profil picture">
+                    {% else %}
+                        <i class="far fa-laugh-beam default-profile-image"></i>
+                    {% endif %}
+                    <p>{{ comment.author.firstName }} {{ comment.author.lastName }}</p>
+                </a>
+                {% if comment.author is same as(app.user) %}
+                    <a class="comment-delete" href="{{ path('comment_delete', {'id': comment.id}) }}"><i class="fas fa-times"></i></a>
                 {% endif %}
-                <p>{{ comment.author.firstName }} {{ comment.author.lastName }}</p>
-            </a>
+            </div>
             <p class="comment-content">{{ comment.content }}</p>
             <span class="project-date">{{ comment.createdAt|date("m.d.Y") }}</span>
         </div>
