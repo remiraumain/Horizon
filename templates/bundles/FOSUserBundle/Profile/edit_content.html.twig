@@ -5,6 +5,11 @@
         <div class="col-sm-12 mt-5">
             {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
 
+                {% if app.user.imageFilename %}
+                    <div class="user-image d-flex justify-content-center">
+                        <img src="{{ app.user.imagePath|imagine_filter('squared_thumbnail_medium') }}" alt="profile picture">
+                    </div>
+                {% endif %}
                 {{ form_row(form.firstName, {
                     'attr': {'placeholder': 'First name'}
                 }) }}

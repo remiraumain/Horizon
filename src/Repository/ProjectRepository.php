@@ -33,17 +33,12 @@ class ProjectRepository extends ServiceEntityRepository
             ;
     }
 
-    /**
-     * @return Project[]
-     */
-    public function findAllPublishedOrderedByNewest()
+    public function getAllPublishedOrderedByNewestQueryBuilder():QueryBuilder
     {
         return $this->addIsPublishedQueryBuilder()
             //->leftJoin('a.tags', 't')
             //->addSelect('t')
             ->orderBy('a.publishedAt', 'DESC')
-            ->getQuery()
-            ->getResult()
             ;
     }
 
@@ -53,10 +48,7 @@ class ProjectRepository extends ServiceEntityRepository
             ->orderBy('a.likes', 'DESC');
     }
 
-    /**
-     * @return Project[]
-     */
-    public function findAllPublishedByCategory(array $filter)
+    public function getAllPublishedByCategoryQueryBuilder(array $filter):QueryBuilder
     {
         if (!isset($filter['id'])) {
             return $this->findAllPublishedByLikes();
@@ -66,8 +58,6 @@ class ProjectRepository extends ServiceEntityRepository
             ->addSelect('c')
             ->andWhere('c.name = :name')
             ->setParameter('name', $filter['name'])
-            ->getQuery()
-            ->getResult()
             ;
     }
 

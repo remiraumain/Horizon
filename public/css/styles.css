@@ -44,6 +44,10 @@ body {
     flex-direction: row-reverse;
 }
 
+.hidden {
+    display: none;
+}
+
 /* Project */
 
 .content-wrap {

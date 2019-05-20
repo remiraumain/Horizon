@@ -219,20 +219,26 @@ class ProjectController extends AbstractController
      * @Route("/project", name="project_filter")
      * @IsGranted("ROLE_USER")
      */
-    public function filter(ProjectRepository $projectRepository, CategoryRepository $categoryRepository, Request $request)
+    public function filter(ProjectRepository $projectRepository, CategoryRepository $categoryRepository, Request $request, PaginatorInterface $paginator)
     {
         $categories = $categoryRepository->findAll();
         $filter = $request->query->get('filter');
 
         if ($filter) {
-            $projects = $projectRepository->findAllPublishedByCategory($filter);
+            $queryBuilder = $projectRepository->getAllPublishedByCategoryQueryBuilder($filter);
         } else {
-            $projects = $projectRepository->findAllPublishedOrderedByNewest();
+            $queryBuilder = $projectRepository->getAllPublishedOrderedByNewestQueryBuilder();
         }
+
+        $pagination = $paginator->paginate(
+            $queryBuilder, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            20/*limit per page*/
+        );
 
         return $this->render('project/explore.html.twig', [
             'controller_name' => 'ProjectController',
-            'projects' => $projects,
+            'pagination' => $pagination,
             'categories' => $categories,
             'filter' => $filter
         ]);

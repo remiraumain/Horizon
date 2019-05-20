@@ -1,36 +1,46 @@
 {% extends 'content_base.html.twig' %}
 
 {% block content_body %}
+    <div class="row">
+        <div class="dropdown show col-sm-3">
+            <a class="btn btn-secondary dropdown-toggle filter-select" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Category
+            </a>
 
-    <div class="dropdown show">
-        <a class="btn btn-secondary dropdown-toggle filter-select" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Category
-        </a>
-
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item {{ filter ? '' : 'selected' }}" href="{{ path('project_filter') }}">Recent</a>
-            {% for category in categories %}
-                <a href="{{ path('project_filter', {'filter': {'name': category.name, 'id': category.id}}) }}" class="dropdown-item
-                        {% if filter %}
-                            {{ (category.name in filter.name) ? 'selected' : '' }}
-                        {% endif %}">
-                    {{ category.name }}
-                </a>
-            {% endfor %}
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item {{ filter ? '' : 'selected' }}" href="{{ path('project_filter') }}">Recent</a>
+                {% for category in categories %}
+                    <a href="{{ path('project_filter', {'filter': {'name': category.name, 'id': category.id}}) }}" class="dropdown-item
+                            {% if filter %}
+                                {{ (category.name in filter.name) ? 'selected' : '' }}
+                            {% endif %}">
+                        {{ category.name }}
+                    </a>
+                {% endfor %}
+            </div>
         </div>
+        <h1 class="col-sm-9">{{ filter ? filter.name : 'Recent' }} ({{ pagination.getTotalItemCount }})</h1>
     </div>
     <div class="row justify-content-center">
-        <div class="col-sm-12 other-projects">
-            {% for project in projects %}
-                {% set firstImage = project.projectImages|first %}
-                <div>
-                    <a href="{{ path('project_show', {slug: project.slug}) }}">
-                        <img src="{{ firstImage.imagePath|imagine_filter('squared_thumbnail_small') }}" alt="project picture">
-                    </a>
-                </div>
-            {% endfor %}
-        </div>
+        {% if pagination %}
+            <div class="col-sm-12 other-projects mb-5 mt-5">
+                {% for project in pagination %}
+                    {% set firstImage = project.projectImages|first %}
+                    <div>
+                        <a href="{{ path('project_show', {slug: project.slug}) }}">
+                            <img src="{{ firstImage.imagePath|imagine_filter('squared_thumbnail_small') }}" alt="project picture">
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+            {{ knp_pagination_render(pagination) }}
+        {% else %}
+            <div class="d-flex justify-content-center m-5">
+                <p class="m-5">Looks like you haven't liked any projects yet !</p>
+            </div>
+        {% endif %}
     </div>
+
 {% endblock %}
 
 {% block title %}

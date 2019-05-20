@@ -14,7 +14,7 @@
                     <i class="far fa-laugh-beam default-profile-image"></i>
                 {% endif %}
                 <div class="col-md-10 no-pad d-flex-centered">
-                    <div class="user-pad d-flex-centered d-flex-column">
+                    <div class="user-pad d-flex-centered d-flex-column mb-3">
                         <h3>{{ user.firstName }} {{ user.lastName }}</h3>
                         {% if user is same as(app.user) %}
                             <a class="btn btn-labeled btn-info" href="{{ path('fos_user_profile_edit') }}">

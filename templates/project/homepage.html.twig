@@ -32,8 +32,8 @@
             {% endif %}
     {% endfor %}
     <div class="row justify-content-center">
-        <div class="col-sm-12 other-projects">
-            {% if pagination %}
+        {% if pagination %}
+            <div class="col-sm-12 other-projects mb-5">
                 {% for project in pagination %}
                     {% set firstImage = project.projectImages|first %}
                     {% if not loop.first %}
@@ -44,15 +44,16 @@
                         </div>
                     {% endif %}
                 {% endfor %}
-            {% else %}
+            </div>
+            {{ knp_pagination_render(pagination) }}
+        {% else %}
 
-                <div class="d-flex justify-content-center m-5">
-                    <p class="m-5">Looks like you haven't liked any projects yet !</p>
-                </div>
-            {% endif %}
-        </div>
+            <div class="d-flex justify-content-center m-5">
+                <p class="m-5">Looks like you haven't liked any projects yet !</p>
+            </div>
+        {% endif %}
     </div>
-    {{ knp_pagination_render(pagination) }}
+
 </div>
 
 {% endblock %}
