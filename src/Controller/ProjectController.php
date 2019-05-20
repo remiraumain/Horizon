@@ -10,6 +10,7 @@ use App\Repository\ProjectRepository;
 use App\Service\UploaderHelper;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -25,7 +26,7 @@ class ProjectController extends AbstractController
     /**
      * @Route("/", name="app_homepage")
      */
-    public function homepage(ProjectRepository $projectRepository, Request $request)
+    public function homepage(ProjectRepository $projectRepository, Request $request, PaginatorInterface $paginator)
     {
         if (!$this->getUser()) {
             return $this->render('project/landing.html.twig', [
@@ -36,15 +37,21 @@ class ProjectController extends AbstractController
         $filter = $request->query->get('filter');
 
         if (!is_null($filter) && $filter === 'likes') {
-            $projects = $projectRepository->findAllPublishedLikedBy($this->getUser()->getId());
+            $queryBuilder = $projectRepository->getAllPublishedLikedByQueryBuilder($this->getUser()->getId());
 
         } else {
-            $projects = $projectRepository->findAllPublishedByLikes();
+            $queryBuilder = $projectRepository->getAllPublishedByLikesQueryBuilder();
         }
+
+        $pagination = $paginator->paginate(
+            $queryBuilder, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            11/*limit per page*/
+        );
 
         return $this->render('project/homepage.html.twig', [
             'controller_name' => 'ProjectController',
-            'projects' => $projects,
+            'pagination' => $pagination,
             'filter' => $filter,
         ]);
     }

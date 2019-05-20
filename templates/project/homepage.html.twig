@@ -7,7 +7,7 @@
     <a class="project-filter-link {{ filter ? 'selected' : '' }}" href="{{ path('app_homepage', {'filter': 'likes'}) }}" >Likes</a>
 </div>
 <div class="row flex-wrap justify-content-center project-section">
-    {% for project in projects %}
+    {% for project in pagination %}
         {% set firstImage = project.projectImages|first %}
             {% if loop.first %}
                 <div class="col-sm-12 trend-project">
@@ -33,8 +33,8 @@
     {% endfor %}
     <div class="row justify-content-center">
         <div class="col-sm-12 other-projects">
-            {% if projects %}
-                {% for project in projects %}
+            {% if pagination %}
+                {% for project in pagination %}
                     {% set firstImage = project.projectImages|first %}
                     {% if not loop.first %}
                         <div>
@@ -52,6 +52,7 @@
             {% endif %}
         </div>
     </div>
+    {{ knp_pagination_render(pagination) }}
 </div>
 
 {% endblock %}

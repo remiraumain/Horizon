@@ -6,6 +6,7 @@ use App\Entity\Project;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
+use http\QueryString;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -46,16 +47,10 @@ class ProjectRepository extends ServiceEntityRepository
             ;
     }
 
-    /**
-     * @return Project[]
-     */
-    public function findAllPublishedByLikes()
+    public function getAllPublishedByLikesQueryBuilder():QueryBuilder
     {
         return $this->addIsPublishedQueryBuilder()
-            ->orderBy('a.likes', 'DESC')
-            ->getQuery()
-            ->getResult()
-            ;
+            ->orderBy('a.likes', 'DESC');
     }
 
     /**
@@ -76,18 +71,13 @@ class ProjectRepository extends ServiceEntityRepository
             ;
     }
 
-    /**
-     * @return Project[]
-     */
-    public function findAllPublishedLikedBy(int $id)
+    public function getAllPublishedLikedByQueryBuilder(int $id): QueryBuilder
     {
         return $this->addIsPublishedQueryBuilder()
             ->leftJoin('a.likeUsers', 'u')
             ->addSelect('u')
             ->andWhere('u.id = :id')
             ->setParameter('id', $id)
-            ->getQuery()
-            ->getResult()
             ;
     }
 

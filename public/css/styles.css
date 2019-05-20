@@ -99,6 +99,17 @@ body {
     border-color: #202020;
 }
 
+/*!* PAGINATION *!*/
+.pagination .active .page-link {
+    background-color: black;
+    color: #fec503;
+    border-color: black;
+}
+
+.pagination .page-link {
+    color: black;
+}
+
 /*!* FOOTER *!*/
 
 .footer {
