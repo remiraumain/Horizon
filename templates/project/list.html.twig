@@ -4,7 +4,7 @@
     <div class="list-admin mt-5">
         {% if projects %}
             <div class="list-head">
-                <a href="{{ path('project_new') }}" class="btn btn-primary pull-right">
+                <a href="{{ path('project_new') }}" class="btn pull-right">
                     Create <span class="fa fa-plus-circle"></span>
                 </a>
                 <h1>All Projects</h1>
@@ -13,7 +13,6 @@
                 <thead>
                 <tr>
                     <th>Title</th>
-                    <th>Author</th>
                     <th>Published?</th>
                     <th>Edit</th>
                     <th>Remove</th>
@@ -27,7 +26,6 @@
                             }) }}">
                                 {{ project.name }}
                             </a></td>
-                        <td>{{ project.author.email }}</td>
                         <td>
                             <span class="list-admin-icon fa fa-{{ project.isPublished ? 'check' : 'times' }}"></span>
                         </td>

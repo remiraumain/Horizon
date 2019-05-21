@@ -198,7 +198,7 @@ function initializeDropzone(referenceList) {
     }
     var dropzone = new Dropzone(formElement, {
         paramName: 'reference',
-        timeout: 360000,
+        timeout: 180000,
         init: function () {
             this.on('success', function (file, data) {
                 referenceList.addReference(data);

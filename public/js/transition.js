@@ -4,6 +4,6 @@ $( ".cta" ).on('click', function(e) {
     $( ".transition").toggleClass( "anim-trans" );
     setTimeout(function () {
         window:location.replace(link.attr('href'));
-    }, 1500);
+    }, 1600);
 });
 

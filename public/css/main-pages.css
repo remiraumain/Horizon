@@ -3,7 +3,7 @@
     border:none;
     text-decoration:none!important;
     text-transform:uppercase;
-    background:#202020;
+    background:black;
     color:#eaeaea;
     box-sizing:border-box;
     padding:10px 40px;
@@ -41,7 +41,7 @@
     padding: 50px 0 0 50px;
     bottom: 0;
     left: 10%;
-    box-shadow: -10px 10px 10px #EEEEF0;
+    box-shadow: -10px 10px 10px lightgray;
 }
 
 .project-section > div:first-child div a {
@@ -66,16 +66,29 @@
 }
 .other-projects a {
     display: flex;
+    flex-direction: column;
+    text-decoration: none;
 }
 
 .other-projects img {
     position: relative;
     z-index: -1;
     max-width: 100%;
+    width: 200px;
 }
 
 .other-projects div {
     margin: 10px;
+}
+
+.other-projects p {
+    width: 200px;
+    height: 60px;
+    padding: 5px;
+    color: black;
+    text-align: center;
+    background-color: white;
+    box-shadow: -5px 5px 10px lightgray;
 }
 
 /* Explore page */
@@ -86,13 +99,70 @@
     border-radius:0!important;
     text-decoration:none!important;
     text-transform:uppercase!important;
-    background:#202020!important;
+    background:black!important;
     color:#eaeaea!important;
     box-sizing:border-box!important;
     padding:10px 40px!important;
     margin: 0 10px 20px 10px!important;
 }
 
-.selected:hover {
+.dropdown-menu .selected:hover {
     color: black!important;
 }
+
+
+
+@media (max-width : 900px) {
+
+    .project-filter-link:nth-child(2) {
+        margin-bottom: 14px;
+    }
+
+    .trend-project {
+        flex-direction: column;
+        position: initial!important;
+        padding: 0 10%!important;
+    }
+
+    .trend-project img {
+        width: 100%;
+    }
+
+    .trend-project div {
+        position: initial!important;
+        width: 100%!important;
+        height: auto!important;
+        padding: 10px 10px!important;
+        box-shadow: -10px 10px 10px lightgrey!important;
+    }
+
+    .other-projects div {
+        width: 100%;
+    }
+
+    .other-projects img {
+        width: 100%;
+    }
+
+    .other-projects a {
+        position: relative;
+    }
+
+    .other-projects p {
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.2em;
+    }
+
+    .pagination {
+        flex-wrap: wrap;
+    }
+}
+
+
+

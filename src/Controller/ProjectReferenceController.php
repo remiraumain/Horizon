@@ -58,7 +58,7 @@ class ProjectReferenceController extends AbstractController
                     'message' => 'Please select a file to upload'
                 ]),
                 new File([
-                    'maxSize' => '150M',
+                    'maxSize' => '50M',
                     'mimeTypes' => [
                         'image/*',
                         'application/pdf',

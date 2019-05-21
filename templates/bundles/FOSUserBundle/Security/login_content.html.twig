@@ -11,8 +11,8 @@
         {% endif %}
 
         <h1 class="h3 mb-3 font-weight-normal">Log in</h1>
-        <label for="inputUsername" class="sr-only">Username</label>
-        <input type="text" value="{{ last_username }}" name="_username" id="inputUsername" class="form-control" placeholder="Email" required autofocus>
+        <label for="inputUsername" class="sr-only">Email</label>
+        <input type="email" value="{{ last_username }}" name="_username" id="inputUsername" class="form-control" placeholder="Email" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" name="_password" id="inputPassword" class="form-control" placeholder="Password" required>
 
@@ -21,7 +21,7 @@
                 <input type="checkbox" name="_remember_me"> Remember me
             </label>
         </div>
-        <button class="btn btn-lg btn-primary btn-block button-classic" type="submit">Log in</button>
+        <button class="btn-lg btn-block button-classic" type="submit">Log in</button>
     </form>
 
 </div>

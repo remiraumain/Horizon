@@ -36,3 +36,12 @@ body {
     display: flex;
     justify-content: center;
 }
+
+
+@media (max-width : 900px) {
+
+    .table td, .table th {
+        padding: .5rem;
+    }
+}
+

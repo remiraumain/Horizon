@@ -17,7 +17,7 @@
     align-self: baseline;
     position: absolute;
     top: 10px;
-    left: 0;
+    left: 10px;
     color: #999999;
     text-decoration: none;
 }
@@ -29,7 +29,7 @@
 .edit-icon {
     position: absolute;
     top: 10px;
-    right: 0;
+    right: 10px;
     font-size: x-large;
     color: #999999;
 }
@@ -116,4 +116,23 @@
 .comment .project-date {
     padding-right: 15px;
     align-self: flex-end;
+}
+
+@media (max-width : 900px) {
+
+    .carousel-item img {
+        max-height: 200px;
+    }
+
+    .carousel-control-next {
+        right: -15px;
+    }
+
+    .carousel-control-prev {
+        left: -15px;
+    }
+
+    .heart {
+        margin-right: 0;
+    }
 }

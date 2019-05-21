@@ -31,7 +31,6 @@
                 </div>
             {% endif %}
     {% endfor %}
-    <div class="row justify-content-center">
         {% if pagination %}
             <div class="col-sm-12 other-projects mb-5">
                 {% for project in pagination %}
@@ -40,6 +39,7 @@
                         <div>
                             <a href="{{ path('project_show', {slug: project.slug}) }}">
                                 <img src="{{ firstImage.imagePath|imagine_filter('squared_thumbnail_small') }}" alt="project picture">
+                                <p>{{ project.name|title|truncate(20, true) }}</p>
                             </a>
                         </div>
                     {% endif %}
@@ -52,8 +52,6 @@
                 <p class="m-5">Looks like you haven't liked any projects yet !</p>
             </div>
         {% endif %}
-    </div>
-
 </div>
 
 {% endblock %}

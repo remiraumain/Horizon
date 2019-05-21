@@ -1,5 +1,5 @@
 .navbar {
-    background-color: #212529;
+    background-color: black;
     padding: 10px 20px;
 }
 
@@ -66,3 +66,18 @@
     color: white;
 }
 
+
+@media (max-width : 900px) {
+    .nav-link-img {
+        align-self: center;
+    }
+
+    .navbar-toggler {
+        color: black!important;
+        border-color: black!important;
+    }
+
+    .dropdown-item {
+        width: fit-content;
+    }
+}

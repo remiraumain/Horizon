@@ -36,7 +36,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link js-scroll-trigger" href="{{ path('project_filter') }}" >Explore</a>
                                 </li>
-                                <li class="nav-item dropdown " >
+                                <li class="nav-item dropdown d-flex d-flex-column" >
                                     <a class="nav-link nav-link-img dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"  aria-expanded="false">
                                         {% if app.user.imageFilename %}
                                             <img class="nav-profile-img rounded-circle" src="{{ app.user.imagePath|imagine_filter('squared_thumbnail_small') }}">

@@ -3,7 +3,7 @@
 <div class="fos_user_user_show">
     <div class="container">
         <div class="user-menu-container square">
-            <div class="col-md-12 user-details d-flex-centered d-flex-column">
+            <div class="col-md-12 user-details d-flex-centered d-flex-column p-3">
                 {% if user.imageFilename %}
                     <a href="{{ uploaded_asset(user.imagePath) }}" target="_blank">
                         <div class="user-image">
@@ -13,14 +13,28 @@
                 {% else %}
                     <i class="far fa-laugh-beam default-profile-image"></i>
                 {% endif %}
-                <div class="col-md-10 no-pad d-flex-centered">
-                    <div class="user-pad d-flex-centered d-flex-column mb-3">
+                <div class="col-md-10 no-pad d-flex d-flex-column d-flex-centered">
+                    <div class="user-pad d-flex-centered d-flex-column user-name">
                         <h3>{{ user.firstName }} {{ user.lastName }}</h3>
                         {% if user is same as(app.user) %}
-                            <a class="btn btn-labeled btn-info" href="{{ path('fos_user_profile_edit') }}">
-                                <span class="btn-label"><i class="fa fa-pen"></i></span>Update
+                            <a class="button-classic" href="{{ path('fos_user_profile_edit') }}">
+                                <span class="btn-label"><i class="fa fa-pen"></i></span>{{ 'profile.edit.submit'|trans({}, 'FOSUserBundle') }}
                             </a>
                         {% endif %}
+                    </div>
+                    <div class="row overview">
+                        <div class="col-md-4 user-pad text-center">
+                            <h3>{{ user.likedProjects|length > 1 ? "COMMENTS": "COMMENT"}}</h3>
+                            <h4>{{ user.comments|length }}</h4>
+                        </div>
+                        <div class="col-md-4 user-pad text-center">
+                            <h3>{{ user.likedProjects|length > 1 ? "PROJECTS": "PROJECT"}}</h3>
+                            <h4>{{ user.projects|length }}</h4>
+                        </div>
+                        <div class="col-md-4 user-pad text-center">
+                            <h3>{{ user.likedProjects|length > 1 ? "PROJECTS LIKED": "PROJECT LIKED"}}</h3>
+                            <h4>{{ user.likedProjects|length }}</h4>
+                        </div>
                     </div>
                 </div>
             </div>
