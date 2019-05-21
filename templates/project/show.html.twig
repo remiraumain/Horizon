@@ -108,7 +108,7 @@
                     {% endif %}
                     <p>{{ comment.author.firstName }} {{ comment.author.lastName }}</p>
                 </a>
-                {% if comment.author is same as(app.user) %}
+                {% if comment.author is same as(app.user) or project.author is same as(app.user) %}
                     <a class="comment-delete" href="{{ path('comment_delete', {'id': comment.id}) }}"><i class="fas fa-times"></i></a>
                 {% endif %}
             </div>

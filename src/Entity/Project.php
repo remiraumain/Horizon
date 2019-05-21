@@ -76,7 +76,7 @@ class Project
     private $likes;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="project")
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="project", cascade={"remove"}, orphanRemoval=true)
      */
     private $comments;
 

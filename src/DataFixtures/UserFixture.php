@@ -18,6 +18,13 @@ class UserFixture extends AppFixtures
         'pp1.jpg',
         'pp2.jpg',
         'pp3.jpg',
+        'pp4.jpg',
+        'pp5.jpg',
+        'pp6.jpg',
+        'pp7.jpg',
+        'pp8.jpg',
+        'pp9.jpg',
+        'pp10.jpg',
     ];
 
     public function __construct(UserPasswordEncoderInterface $passwordEncoder, UploaderHelper $uploaderHelper)

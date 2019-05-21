@@ -33,6 +33,12 @@
     padding: 0;
 }
 
+.trend-project > a img {
+    width: 600px;
+    height: 400px;
+    object-fit: cover;
+}
+
 .trend-project div {
     position: absolute;
     background-color: white;
@@ -114,14 +120,15 @@
 
 @media (max-width : 900px) {
 
-    .project-filter-link:nth-child(2) {
-        margin-bottom: 14px;
-    }
-
     .trend-project {
         flex-direction: column;
         position: initial!important;
-        padding: 0 10%!important;
+        padding: 15px 10% 0 10%!important;
+    }
+
+    .trend-project > a img {
+        width: 100%;
+        height: 200px;
     }
 
     .trend-project img {
