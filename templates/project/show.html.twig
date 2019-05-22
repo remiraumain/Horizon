@@ -101,7 +101,7 @@
         <div class="d-flex d-flex-column col-sm-12 comment p-2 mt-3">
             <div class="d-flex">
                 <a class="project-author-info" href="{{ path('profile_show', {'id': comment.author.id}) }}">
-                    {% if project.author.imageFilename %}
+                    {% if comment.author.imageFilename %}
                         <img class="rounded-circle" src="{{ comment.author.imagePath|imagine_filter('squared_thumbnail_small') }}" alt="profil picture">
                     {% else %}
                         <i class="far fa-laugh-beam default-profile-image"></i>

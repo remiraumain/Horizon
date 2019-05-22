@@ -6,6 +6,10 @@ body {
     display: none;
 }
 
+.list-admin tr th:first-child {
+    width: 76.6%;
+}
+
 .list-admin table a {
     color: #fec503;
     text-decoration: none;
@@ -25,11 +29,13 @@ body {
     height: fit-content;
     background-color: #fec503;
     border-color: #fec503;
+    transition: none;
 }
 
 .list-head a:hover {
     background-color: black;
     border-color: black;
+    color: #fec503;
 }
 
 .list-admin-icon {

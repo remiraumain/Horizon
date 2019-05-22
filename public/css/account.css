@@ -38,13 +38,15 @@ div.user-menu-container .thumbnail {
     border: 0px!important;
     padding: 0px;
     border-radius: 0;
-    border: 0px!important;
     display: flex;
     justify-content: center;
 }
 
 .default-profile-image {
     font-size: 5em;
+    width: fit-content;
+    height: fit-content;
+    margin-top: 10px;
 }
 
 /* -- The btn stylings for the btn icons -- */
