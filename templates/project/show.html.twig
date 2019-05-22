@@ -101,15 +101,16 @@
         </div>
     {% endif %}
     </div>
-    <div class="mt-5">
-        {{ form_start(form) }}
-        {{ form_row(form.content, {'label': 'Comment'}) }}
+    {% if project.published %}
+        <div class="mt-5">
+            {{ form_start(form) }}
+            {{ form_row(form.content, {'label': 'Comment'}) }}
 
-        <button type="submit" class="button-classic">Valider</button>
-        {{ form_end(form) }}
-    </div>
-
-    {% if project.comments|length  %}
+            <button type="submit" class="button-classic">Valider</button>
+            {{ form_end(form) }}
+        </div>
+    {% endif %}
+    {% if project.comments|length %}
     <div class="row mt-5">
         {% for comment in project.comments %}
         <div class="d-flex d-flex-column col-sm-12 comment p-2 mt-3">

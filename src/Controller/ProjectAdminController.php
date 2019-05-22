@@ -96,7 +96,9 @@ class ProjectAdminController extends AbstractController
                 : 'task_publish';
 
             if ($nextAction === 'task_publish') {
-                $project->setPublishedAt(new DateTime('now'));
+                if (!$project->isPublished()) {
+                    $project->setPublishedAt(new DateTime('now'));
+                }
                 $this->addFlash('success', 'Project published ✅');
             } else {
                 $project->setPublishedAt(null);

@@ -6,15 +6,26 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>{% block title %}Horizon{% endblock %}</title>
-        <link rel="icon" type="image/png" href="{{ uploaded_asset("logo/small-logo.png") }}" />
-
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ uploaded_asset('logo/apple-touch-icon.png') }}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ uploaded_asset('logo/favicon-32x32.png') }}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ uploaded_asset('logo/favicon-16x16.png') }}">
+        <link rel="manifest" href="{{ uploaded_asset('logo/site.webmanifest') }}">
+        <link rel="mask-icon" href="{{ uploaded_asset('logo/safari-pinned-tab.svg') }}" color="#fec503">
+        <link rel="shortcut icon" href="{{ uploaded_asset('logo/favicon.ico') }}">
+        <meta name="msapplication-TileColor" content="#000000">
+        <meta name="msapplication-config" content="{{ uploaded_asset('logo/browserconfig.xml') }}">
+        <meta name="theme-color" content="#ffffff">
         {% block OpenGraph %}
             <meta property="og:title" content="Horizon" />
             <meta property="og:type" content="website" />
             <meta property="og:url" content="http://www.horizon-technology.fr" />
         {% endblock %}
-        <meta property="og:image" content="{{ uploaded_asset("logo/logo.png") }}" />
+        <meta property="og:image" content="{{ uploaded_asset('logo/logo.png') }}" />
         <meta property="og:site_name" content="Horizon" />
+        <meta property="og:description" content="School project by Rémi Raumain" />
+        <meta name="twitter:image:alt" content="Horizon's logo">
+        <meta property="fb:app_id" content="622410141607816" />
+        <meta name="twitter:site" content="@RemiR22">
 
         {% block stylesheets %}
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
