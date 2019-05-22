@@ -2,6 +2,12 @@
 
 {% block title %}Profile{% endblock %}
 
+{% block OpenGraph %}
+    <meta property="og:title" content="Profile" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://www.horizon-technology.fr/profile" />
+{% endblock %}
+
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('css/account.css') }}">

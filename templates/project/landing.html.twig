@@ -1,5 +1,18 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Welcome!{% endblock %}
+
+{% block OpenGraph %}
+    <meta property="og:title" content="Welcome!" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://www.horizon-technology.fr" />
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/transition.css') }}">
+{% endblock %}
+
 {% block nav %}{% endblock %}
 
 {% block body %}
@@ -15,15 +28,6 @@
 {% endblock %}
 
 {% block footer %}{% endblock %}
-
-{% block title %}
-
-{% endblock %}
-
-{% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('css/transition.css') }}">
-{% endblock %}
 
 {% block javascripts %}
     {{ parent() }}

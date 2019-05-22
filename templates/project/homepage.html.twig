@@ -1,5 +1,18 @@
 {% extends 'content_base.html.twig' %}
 
+{% block title %}Horizon{% endblock %}
+
+{% block OpenGraph %}
+    <meta property="og:title" content="Horizon" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://www.horizon-technology.fr/" />
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/main-pages.css') }}">
+{% endblock %}
+
 {% block content_body %}
 
 <div class="row justify-content-center">
@@ -53,15 +66,5 @@
             </div>
         {% endif %}
 </div>
-
-{% endblock %}
-
-{% block title %}
-
-{% endblock %}
-
-{% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('css/main-pages.css') }}">
 {% endblock %}
 

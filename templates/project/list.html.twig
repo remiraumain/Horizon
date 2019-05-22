@@ -1,5 +1,18 @@
 {% extends 'content_base.html.twig' %}
 
+{% block title %}Horizon : admin{% endblock %}
+
+{% block OpenGraph %}
+    <meta property="og:title" content="Horizon : admin" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://www.horizon-technology.fr/admin/list" />
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}" >
+{% endblock %}
+
 {% block content_body %}
     <div class="list-admin mt-5">
         {% if projects %}
@@ -53,9 +66,4 @@
             </div>
         {% endif %}
     </div>
-{% endblock %}
-
-{% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('css/admin.css') }}" >
 {% endblock %}

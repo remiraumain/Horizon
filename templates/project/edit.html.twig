@@ -1,5 +1,19 @@
 {% extends 'content_base.html.twig' %}
 
+{% block title %}Horizon : project{% endblock %}
+
+{% block OpenGraph %}
+    <meta property="og:title" content="Horizon : project" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://www.horizon-technology.fr/admin/project/{{ project.slug }}/edit" />
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/project-edit.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css" integrity="sha256-e47xOkXs1JXFbjjpoRr1/LhVcqSzRmGmPqsrUQeVs+g=" crossorigin="anonymous" />
+{% endblock %}
+
 {% block content_body %}
     <div class="row mt-5 mb-5">
         <div class="col-sm-2 mb-5">
@@ -38,12 +52,6 @@
             </form>
         </div>
     </div>
-{% endblock %}
-
-{% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('css/project-edit.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css" integrity="sha256-e47xOkXs1JXFbjjpoRr1/LhVcqSzRmGmPqsrUQeVs+g=" crossorigin="anonymous" />
 {% endblock %}
 
 {% block javascripts %}

@@ -1,4 +1,19 @@
 {% extends "@FOSUser/layout.html.twig" %}
+
+{% block title %}Sign up{% endblock %}
+
+{% block OpenGraph %}
+    <meta property="og:title" content="Sign up" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://www.horizon-technology.fr/register" />
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+{% endblock %}
+
+
 {% form_theme form _self %}
 
 {% block form_row %}
@@ -15,26 +30,12 @@
     {{- form_help(form) -}}
 {% endblock %}
 
-{% block _user_registration_form_agreeTerms_row %}
-    <div class="checkbox mb-3">
-        {{ form_errors(form) }}
-        <label>
-            <input type="checkbox" name="{{ full_name }}" required> Agree to terms I for sure read
-        </label>
-    </div>
-{% endblock %}
-
-{% block footer %}{% endblock %}
-
-{% block title %}Sign up{% endblock %}
-
-{% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
-{% endblock %}
-
 {% block body %}
     {% block fos_user_content %}
         {% include "@FOSUser/Registration/register_content.html.twig" %}
     {% endblock fos_user_content %}
 {% endblock %}
+
+{% block footer %}{% endblock %}
+
+

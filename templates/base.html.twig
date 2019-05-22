@@ -4,7 +4,18 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+
+        <title>{% block title %}Horizon{% endblock %}</title>
+        <link rel="icon" type="image/png" href="{{ uploaded_asset("logo/small-logo.png") }}" />
+
+        {% block OpenGraph %}
+            <meta property="og:title" content="Horizon" />
+            <meta property="og:type" content="website" />
+            <meta property="og:url" content="http://www.horizon-technology.fr" />
+        {% endblock %}
+        <meta property="og:image" content="{{ uploaded_asset("logo/logo.png") }}" />
+        <meta property="og:site_name" content="Horizon" />
+
         {% block stylesheets %}
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
             <link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">

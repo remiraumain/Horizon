@@ -66,98 +66,6 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("admin/project/new", name="project_new")
-     * @IsGranted("ROLE_USER")
-     */
-    public function new(EntityManagerInterface $entityManager, Request $request, UploaderHelper $uploaderHelper)
-    {
-        $form = $this->createForm(ProjectFormType::class);
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            /** @var Project $project */
-            $project = $form->getData();
-            $project->setAuthor($this->getUser());
-
-            $entityManager->persist($project);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('project_edit', [
-                'slug' => $project->getSlug(),
-            ]);
-        }
-
-        return $this->render('project/new.html.twig', [
-            'controller_name' => 'ProjectController',
-            'form' => $form->createView()
-        ]);
-    }
-
-    /**
-     * @Route("/project/{slug}/edit", name="project_edit")
-     * @IsGranted("MANAGE", subject="project")
-     */
-    public function edit(Project $project, Request $request, EntityManagerInterface $em, ValidatorInterface $validator)
-    {
-        $form = $this->createForm(ProjectFormType::class, $project);
-
-        $form->handleRequest($request);
-
-        $desc = $form->get('description')->getData();
-        $violations = $validator->validate(
-            $desc,
-            [
-                new NotBlank([
-                    'message' => 'Don\'t forget the description of your project'
-                ]),
-            ]
-        );
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            if ($violations->count() > 0) {
-                $this->addFlash('error', $violations[0]->getMessage());
-
-                return $this->render('project/edit.html.twig', [
-                    'form' => $form->createView(),
-                    'project' => $project,
-                ]);
-            }
-            if (!$project->getProjectImages()->count() > 0) {
-                $this->addFlash('error', 'Please upload some images 🤨');
-
-                return $this->render('project/edit.html.twig', [
-                    'form' => $form->createView(),
-                    'project' => $project,
-                ]);
-            }
-
-            $nextAction = $form->get('save')->isClicked()
-                ? 'task_new'
-                : 'task_publish';
-
-            if ($nextAction === 'task_publish') {
-                $project->setPublishedAt(new DateTime('now'));
-                $this->addFlash('success', 'Project published ✅');
-            } else {
-                $project->setPublishedAt(null);
-                $this->addFlash('success', 'Project saved in the drafts 🥰');
-            }
-
-            $em->persist($project);
-            $em->flush();
-
-            return $this->redirectToRoute('project_show', [
-                'slug' => $project->getSlug(),
-            ]);
-        }
-
-        return $this->render('project/edit.html.twig', [
-            'form' => $form->createView(),
-            'project' => $project,
-        ]);
-    }
-
-    /**
      * @Route("/project/{slug}", name="project_show")
      * @IsGranted("ROLE_USER")
      */
@@ -216,7 +124,7 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("/project", name="project_filter")
+     * @Route("/explore", name="project_filter")
      * @IsGranted("ROLE_USER")
      */
     public function filter(ProjectRepository $projectRepository, CategoryRepository $categoryRepository, Request $request, PaginatorInterface $paginator)

@@ -1,5 +1,19 @@
 {% extends 'content_base.html.twig' %}
 
+{% block title %}Horizon{% endblock %}
+
+{% block OpenGraph %}
+    <meta property="og:title" content="Horizon" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://www.horizon-technology.fr/explore" />
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/main-pages.css') }}">
+{% endblock %}
+
+
 {% block content_body %}
     <div class="row">
         <div class="dropdown show col-sm-3">
@@ -44,14 +58,6 @@
 
 {% endblock %}
 
-{% block title %}
-
-{% endblock %}
-
-{% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('css/main-pages.css') }}">
-{% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
