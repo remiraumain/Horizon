@@ -2,11 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8fc237f9-90e6-4873-bfd6-c5aef1ea78c6" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/ProjectAdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProjectAdminController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataFixtures/CommentFixture.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/CommentFixture.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/project/landing.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/project/landing.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/project/show.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/project/show.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/project/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/project_admin/edit.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/project/list.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/project_admin/list.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/project/new.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/project_admin/new.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/project_admin/index.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/project_reference/index.html.twig" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,11 +21,17 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Controller/ProjectAdminController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="354">
-              <caret line="95" column="33" selection-start-line="95" selection-start-column="33" selection-end-line="95" selection-end-column="33" />
+            <state relative-caret-position="105">
+              <caret line="26" column="1" lean-forward="true" selection-start-line="26" selection-start-column="1" selection-end-line="26" selection-end-column="1" />
+              <folding>
+                <element signature="e#1720#1749#0#PHP" expanded="true" />
+                <element signature="e#3978#4008#0#PHP" expanded="true" />
+                <element signature="e#4692#4706#1#PHP" expanded="true" />
+                <element signature="e#7825#7855#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -47,7 +55,7 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/project/edit.html.twig">
+        <entry file="file://$PROJECT_DIR$/templates/project_admin/edit.html.twig">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="30">
               <caret line="2" selection-start-line="2" selection-end-line="8" selection-end-column="14" />
@@ -58,11 +66,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/base.html.twig">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="244">
-              <caret line="21" column="22" lean-forward="true" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
+              <caret line="21" column="22" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
               <folding>
                 <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="e#2842#2854#0#Twig" expanded="true" />
@@ -232,11 +240,11 @@
         <option value="$PROJECT_DIR$/templates/project/list.html.twig" />
         <option value="$PROJECT_DIR$/templates/bundles/FOSUserBundle/Profile/show.html.twig" />
         <option value="$PROJECT_DIR$/templates/bundles/FOSUserBundle/Profile/edit.html.twig" />
-        <option value="$PROJECT_DIR$/src/Controller/ProjectAdminController.php" />
         <option value="$PROJECT_DIR$/src/DataFixtures/CommentFixture.php" />
         <option value="$PROJECT_DIR$/templates/project/show.html.twig" />
         <option value="$PROJECT_DIR$/templates/project/landing.html.twig" />
         <option value="$PROJECT_DIR$/templates/base.html.twig" />
+        <option value="$PROJECT_DIR$/src/Controller/ProjectAdminController.php" />
       </list>
     </option>
   </component>
@@ -371,7 +379,7 @@
   <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="1280" />
-    <option name="height" value="716" />
+    <option name="height" value="715" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
@@ -549,6 +557,7 @@
       <recent name="$PROJECT_DIR$/templates" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/templates/project_admin" />
       <recent name="$PROJECT_DIR$/public/uploads/logo" />
       <recent name="$PROJECT_DIR$/src/DataFixtures/images" />
       <recent name="$PROJECT_DIR$/public" />
@@ -588,12 +597,12 @@
       <workItem from="1557990946008" duration="25791000" />
       <workItem from="1558190334205" duration="6548000" />
       <workItem from="1558343629755" duration="24247000" />
-      <workItem from="1558476116030" duration="9675000" />
+      <workItem from="1558476116030" duration="10386000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="281119000" />
+    <option name="totallyTimeSpent" value="281830000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -605,19 +614,18 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1280" height="716" extended-state="6" />
-    <editor active="true" />
+    <frame x="0" y="23" width="1280" height="715" extended-state="6" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.27948305" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.27948305" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="0" sideWeight="0.49919224" weight="0.43720192" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="0" sideWeight="0.49919224" visible="true" weight="0.434992" />
       <window_info anchor="bottom" id="Database Changes" order="1" />
       <window_info anchor="bottom" id="Event Log" order="2" sideWeight="0.50080776" side_tool="true" weight="0.5752773" />
       <window_info anchor="bottom" id="Version Control" order="3" weight="0.3296355" />
       <window_info anchor="bottom" id="Docker" order="4" show_stripe_button="false" />
       <window_info anchor="bottom" id="Message" order="5" />
-      <window_info anchor="bottom" id="Find" order="6" weight="0.3280507" />
+      <window_info anchor="bottom" id="Find" order="6" weight="0.32744783" />
       <window_info anchor="bottom" id="Run" order="7" />
       <window_info anchor="bottom" id="Debug" order="8" weight="0.3977813" />
       <window_info anchor="bottom" id="Cvs" order="9" weight="0.25" />
@@ -954,7 +962,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/project/new.html.twig">
+    <entry file="file://$PROJECT_DIR$/templates/project_admin/new.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="2" selection-start-line="2" selection-end-line="8" selection-end-column="14" />
@@ -964,7 +972,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/project/list.html.twig">
+    <entry file="file://$PROJECT_DIR$/templates/project_admin/list.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="4" selection-start-line="4" selection-end-line="8" selection-end-column="14" />
@@ -1004,13 +1012,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/ProjectAdminController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="95" column="33" selection-start-line="95" selection-start-column="33" selection-end-line="95" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/DataFixtures/ProjectFixture.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="50">
@@ -1018,7 +1019,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/project/edit.html.twig">
+    <entry file="file://$PROJECT_DIR$/templates/project_admin/edit.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="2" selection-start-line="2" selection-end-line="8" selection-end-column="14" />
@@ -1072,7 +1073,7 @@
     <entry file="file://$PROJECT_DIR$/templates/base.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="244">
-          <caret line="21" column="22" lean-forward="true" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
+          <caret line="21" column="22" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
           <folding>
             <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="e#2842#2854#0#Twig" expanded="true" />
@@ -1089,6 +1090,19 @@
             <element signature="e#7591#7612#0#Twig" expanded="true" />
             <element signature="e#7962#7973#0#Twig" expanded="true" />
             <element signature="e#8322#8346#0#Twig" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/ProjectAdminController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="26" column="1" lean-forward="true" selection-start-line="26" selection-start-column="1" selection-end-line="26" selection-end-column="1" />
+          <folding>
+            <element signature="e#1720#1749#0#PHP" expanded="true" />
+            <element signature="e#3978#4008#0#PHP" expanded="true" />
+            <element signature="e#4692#4706#1#PHP" expanded="true" />
+            <element signature="e#7825#7855#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>

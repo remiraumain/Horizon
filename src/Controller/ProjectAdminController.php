@@ -47,7 +47,7 @@ class ProjectAdminController extends AbstractController
             ]);
         }
 
-        return $this->render('project/new.html.twig', [
+        return $this->render('project_admin/new.html.twig', [
             'controller_name' => 'ProjectController',
             'form' => $form->createView()
         ]);
@@ -113,7 +113,7 @@ class ProjectAdminController extends AbstractController
             ]);
         }
 
-        return $this->render('project/edit.html.twig', [
+        return $this->render('project_admin/edit.html.twig', [
             'form' => $form->createView(),
             'project' => $project,
         ]);
@@ -236,7 +236,7 @@ class ProjectAdminController extends AbstractController
             ['author' => $this->getUser()]
         );
 
-        return $this->render('project/list.html.twig', [
+        return $this->render('project_admin/list.html.twig', [
             'projects' => $projects,
         ]);
     }
