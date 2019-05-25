@@ -43,7 +43,7 @@ class Project
     private $publishedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ProjectReference", mappedBy="project")
+     * @ORM\OneToMany(targetEntity="App\Entity\ProjectReference", mappedBy="project", orphanRemoval=true)
      * @ORM\OrderBy({"position"="ASC"})
      */
     private $projectReferences;

@@ -77,7 +77,7 @@ class ProjectAdminController extends AbstractController
             if ($violations->count() > 0) {
                 $this->addFlash('error', $violations[0]->getMessage());
 
-                return $this->render('project/edit.html.twig', [
+                return $this->render('project_admin/edit.html.twig', [
                     'form' => $form->createView(),
                     'project' => $project,
                 ]);
@@ -129,6 +129,12 @@ class ProjectAdminController extends AbstractController
         {
             $uploaderHelper->deleteFile($image->getImagePath(), true);
         }
+
+        foreach ($project->getProjectReferences() as $reference)
+        {
+            $uploaderHelper->deleteFile($reference->getFilePath(), false);
+        }
+
         $em->remove($project);
         $em->flush();
         $this->addFlash('success', 'Project Deleted! That\'s a good thing because it was garbage 💩');
